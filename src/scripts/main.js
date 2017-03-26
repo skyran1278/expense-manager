@@ -204,11 +204,11 @@ function loadChart(rawData) {
             label: "",
             data: [Meal, Life, Entertainment, Traffic, Others],
             backgroundColor: [
-                'rgba(91, 192, 235, 0.5)',
-                'rgba(253, 231, 76, 0.5)',
-                'rgba(155, 197, 61, 0.5)',
-                'rgba(229, 89, 52, 0.5)',
-                'rgba(250, 121, 33, 0.5)'                
+                'rgba(91, 192, 235, 0.9)',
+                'rgba(253, 231, 76, 0.9)',
+                'rgba(155, 197, 61, 0.9)',
+                'rgba(229, 89, 52, 0.9)',
+                'rgba(250, 121, 33, 0.9)'                
             ],
             borderColor: [
                 'rgba(91, 192, 235, 1)',
