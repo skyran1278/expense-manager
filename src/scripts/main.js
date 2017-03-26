@@ -7,10 +7,22 @@ var config = {
     databaseURL: "https://test-d75f6.firebaseio.com",
     storageBucket: "test-d75f6.appspot.com",
     messagingSenderId: "389657327548"
-  };
+};
 
 firebase.initializeApp(config);
 const database = firebase.database();
+
+// var provider = new firebase.auth.GoogleAuthProvider(); 
+// firebase.auth().signInWithPopup(provider).then(function(result) {      
+//   var token         = result.credential.accessToken;      
+//   var user          = result.user;      // 使用者資訊
+// }).catch(function(error) {
+//   // 處理錯誤
+//   var errorCode     = error.code;
+//   var errorMessage  = error.message;     
+//   var email         = error.email;      // 使用者所使用的 Email
+//   var credential    = error.credential;      
+// });
 
 function writeAccountData(id, title, type, number, date) {
     const accountRef = database.ref('skyran/' + id);
@@ -96,7 +108,7 @@ function updateData(id, title, type, number, date) {
         date: date
     });
     accountRef.on('value', function(snapshot) {
-        console.log('success');
+        // console.log('success');
         window.location = './index.html';
     });
 }
@@ -105,7 +117,15 @@ function deleteData(id) {
     const accountRef = database.ref('skyran/' + id);
     accountRef.remove();
     accountRef.on('value', function(snapshot) {
-        console.log('success');
+        // console.log('success');
+        // let str =
+        //             `
+        //     <div class="alert alert-warning alert-dismissible" role="alert">
+        //         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        //         <strong>Warning!</strong> Better check yourself, you're not looking too good.
+        //     </div>  
+        // `;
+        // document.querySelector('#messenge').innerHTML = str;
         window.location = './index.html';
     });
 }
@@ -114,7 +134,7 @@ function submitListener(submitType) {
     const addFormRef = document.querySelector("#add-form");
     addFormRef.addEventListener('submit', function(e) {
         e.preventDefault();
-        const id = uuid.v4(); //random
+        const id = uuid.v1(); //random
         const title = addFormRef.title.value;
         const type = addFormRef.type.value;
         const number = addFormRef.number.value;
@@ -151,7 +171,12 @@ function deleteBtnListener() {
         deleteBtns[i].addEventListener('click', function(e) {
             const id = deleteBtns[i].getAttribute('data-id');
             e.preventDefault();
-            deleteData(id);            
+            // if (confirm('確認刪除？')) {
+            //     deleteData(id);
+            // } else {
+            //     alert('你按下取消');
+            // }
+            deleteData(id);
         });
     }
 }
@@ -165,31 +190,31 @@ function loadChart(rawData) {
     let Others = 0;
     const ctxRef = document.querySelector('#data-chart');
     const infoRef = document.querySelector('#data-chart-info');
-    for(const key in rawData) {
-      if (rawData.hasOwnProperty(key)) {
-        const type = rawData[key].type;
-        const number = rawData[key].number;
-        switch(type) {
-          case 'Meal':
-            Meal += parseInt(number);
-            break;
-          case 'Life':
-            Life += parseInt(number);
-            break;
-          case 'Entertainment':
-            Entertainment += parseInt(number);
-            break;
-          case 'edu':
-            edu += parseInt(number);
-            break;            
-          case 'Traffic':
-            Traffic += parseInt(number);
-            break; 
-          case 'Others':
-            Others += parseInt(number);
-            break; 
+    for (const key in rawData) {
+        if (rawData.hasOwnProperty(key)) {
+            const type = rawData[key].type;
+            const number = rawData[key].number;
+            switch (type) {
+                case 'Meal':
+                    Meal += parseInt(number);
+                    break;
+                case 'Life':
+                    Life += parseInt(number);
+                    break;
+                case 'Entertainment':
+                    Entertainment += parseInt(number);
+                    break;
+                case 'edu':
+                    edu += parseInt(number);
+                    break;
+                case 'Traffic':
+                    Traffic += parseInt(number);
+                    break;
+                case 'Others':
+                    Others += parseInt(number);
+                    break;
+            }
         }
-      }
     }
     const data = {
         labels: [
@@ -199,8 +224,7 @@ function loadChart(rawData) {
             'Traffic',
             'Others'
         ],
-        datasets: [
-        {
+        datasets: [{
             label: "",
             data: [Meal, Life, Entertainment, Traffic, Others],
             backgroundColor: [
@@ -208,22 +232,22 @@ function loadChart(rawData) {
                 'rgba(253, 231, 76, 0.9)',
                 'rgba(155, 197, 61, 0.9)',
                 'rgba(229, 89, 52, 0.9)',
-                'rgba(250, 121, 33, 0.9)'                
+                'rgba(250, 121, 33, 0.9)'
             ],
             borderColor: [
                 'rgba(91, 192, 235, 1)',
                 'rgba(253, 231, 76,1)',
                 'rgba(155, 197, 61,1)',
                 'rgba(229, 89, 52,1)',
-                'rgba(250, 121, 33,1)'                 
+                'rgba(250, 121, 33,1)'
             ],
             borderWidth: 1
-        }]        
+        }]
     };
     const myPieChart = new Chart(ctxRef, {
         type: 'bar',
         data: data,
-    });      
+    });
 }
 
 const path = window.location.pathname;
