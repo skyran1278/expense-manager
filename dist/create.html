@@ -2,15 +2,13 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Hello</title>
+	<title>iRich</title>
 	<link rel="stylesheet" type="text/css" href="./bower_components/bootstrap/dist/css/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="./css/main.css">
 </head>
 <body>
-
-	<nav class="navbar navbar-default">
+    <nav class="navbar navbar-default">
 	  <div class="container-fluid">
-	    <!-- Brand and toggle get grouped for better mobile display -->
 	    <div class="navbar-header">
 	      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
 	        <span class="sr-only">Toggle navigation</span>
@@ -18,55 +16,49 @@
 	        <span class="icon-bar"></span>
 	        <span class="icon-bar"></span>
 	      </button>
-	      <a class="navbar-brand" href="./">iRich</a>
+	      <a class="navbar-brand" href="./index.html">iRich</a>
 	    </div>
-
-	    <!-- Collect the nav links, forms, and other content for toggling -->
-	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-	      <ul class="nav navbar-nav navbar-right">
-	        <li><a href="./">Home</a></li>
+		<ul class="nav navbar-nav navbar-right">
+			<li><a href="./index.html">Home</a></li>
 			<li><a href="./create.html">Create</a></li>
-	      </ul>
-	    </div><!-- /.navbar-collapse -->
-	  </div><!-- /.container-fluid -->
+		</ul>
 	</nav>
 	<div class="container-fluid">
 		<h3>Create Expense</h3>
 		<hr>
 		<form id="add-form">
 		  <div class="form-group">
-		    <label for="WhatYouBuy">What did you buy today?</label>
-		    <input type="text" class="form-control" name="WhatYouBuy" id="WhatYouBuy" placeholder="Please enter the name of the consumer, Ex. Lunch, dinner, watch the movie" required>
+		    <label for="title">What did you buy today?</label>
+		    <input type="text" class="form-control" name="title" id="title" placeholder="Please enter the name of the consumer, Ex. Lunch, dinner, watch the movie" required>
 		  </div>
 		  <div class="form-group">
 		    <label for="type">Consumption Type</label>
-		    <select class="form-control" name="type" id="type" required>
-			  <option value="">Select</option>
-			  <option value="Meal">Meal</option>
-			  <option value="Life">Life</option>
-			  <option value="Entertainment">Entertainment</option>
-			  <option value="Education">Education</option>
-			  <option value="Traffic">Traffic</option>
-			  <option value="Others">Others</option>
+			<select class="form-control" name="type" id="type" required>
+				<option value="">Select</option>
+				<option value="eat">Meal</option>
+				<option value="life">Life</option>
+				<option value="play">Entertainment</option>
+				<option value="edu">Education</option>
+				<option value="trafic">Traffic</option>
+				<option value="others">Others</option>
 			</select>
 		  </div>
 		  <div class="form-group">
-		    <label for="money">How much did you spend?</label>
-		    <input type="number" class="form-control" name="money" id="money" placeholder="Amount of Consumption" required>		    
+		    <label for="number">How much did you spend?</label>
+		    <input type="number" class="form-control" name="number" id="number" placeholder="Amount of Consumption" required>
 		  </div>
 		  <div class="form-group">
-		    <label for="date">How much did you spend?</label>
-		    <input type="date" class="form-control" name="date" id="date" placeholder="2017/03/01" required>		    
+		    <label for="date">When did you spend?</label>
+		    <input type="date" class="form-control" name="date" id="date" placeholder="2016/10/10" required>
 		  </div>
 		  <button type="submit" class="btn btn-success">Submit</button>
-		  <button type="button" class="btn btn-default"><a href="./">Home</a></button>
+		  <a href="./index.html"><button type="button" class="btn btn-default">Home</button></a>
 		</form>
 	</div>
-
-
 	<script src="https://www.gstatic.com/firebasejs/3.6.10/firebase.js"></script>
 	<script type="text/javascript" src="./bower_components/jquery/dist/jquery.min.js"></script>
 	<script type="text/javascript" src="./bower_components/bootstrap/dist/js/bootstrap.js"></script>
 	<script type="text/javascript" src="./js/bundle.js"></script>
 </body>
 </html>
+

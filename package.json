@@ -37,6 +37,7 @@
     "mongodb": "^2.2.25",
     "mongodb-core": "^2.1.9",
     "mongoose": "^4.9.1",
-    "node-gyp": "^3.6.0"
+    "node-gyp": "^3.6.0",
+    "uuid": "^3.0.1"
   }
 }
