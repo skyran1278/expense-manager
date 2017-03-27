@@ -242,11 +242,29 @@ function loadChart(rawData) {
                 'rgba(250, 121, 33,1)'
             ],
             borderWidth: 1
-        }]
+        }],
+        // options: {
+        //     legend: {
+        //         display: false,
+        //     },
+        //     scales: {
+        //         xAxes: [{
+        //             stacked: true
+        //         }],
+        //         yAxes: [{
+        //             stacked: true
+        //         }]
+        //     }
+        // }
     };
     const myPieChart = new Chart(ctxRef, {
         type: 'bar',
         data: data,
+        options: {
+            legend: {
+                display: false
+            }
+        }
     });
 }
 
