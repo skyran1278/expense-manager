@@ -41,8 +41,8 @@
         <hr>
         <form id="add-form">
             <div class="form-group">
-                <label for="title">What did you buy?</label>
-                <input type="text" class="form-control" name="title" id="title" placeholder="Please enter the name of the consumer, Ex. Lunch, dinner, watch the movie" required>
+                <label for="number">How much did you spend?</label>
+                <input type="number" class="form-control" name="number" id="number" placeholder="Amount of Consumption" required>
             </div>
             <div class="form-group">
                 <label for="type">Consumption Type</label>
@@ -69,13 +69,14 @@
                     <option value="Others">Others</option>
                 </select>
             </div>
-            <div class="form-group">
-                <label for="number">How much did you spend?</label>
-                <input type="number" class="form-control" name="number" id="number" placeholder="Amount of Consumption" required>
-            </div>
+            
             <div class="form-group">
                 <label for="date">When did you spend?</label>
                 <input type="date" class="form-control" name="date" id="date" placeholder="2016/10/10" required>
+            </div>
+            <div class="form-group">
+                <label for="title">What did you buy?</label>
+                <input type="text" class="form-control" name="title" id="title" placeholder="Please enter the name of the consumer, Ex. Lunch, dinner, watch the movie" required>
             </div>
             <button type="submit" class="btn btn-success">Submit</button>
             <a href="./index.html">
