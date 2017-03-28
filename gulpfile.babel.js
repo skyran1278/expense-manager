@@ -73,7 +73,7 @@ gulp.task('styles', ['cleanStyles'], () => {
     .pipe(sourcemaps.init({loadMaps: true}))      
       .pipe(cleanCSS({debug: true}, function(details) {
         console.log(`css-originalSize: ${(details.stats.originalSize/1024).toFixed(2)} KB`); //details.name
-        console.log(`css-originalSize: ${(details.stats.minifiedSize/1024).toFixed(2)} KB`); //details.name
+        console.log(`css-minifiedSize: ${(details.stats.minifiedSize/1024).toFixed(2)} KB`); //details.name
       }))      
     .pipe(sourcemaps.write('./'))
     .pipe(gulp.dest(stylesPaths.dest))  
