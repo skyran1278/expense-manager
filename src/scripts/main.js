@@ -64,6 +64,7 @@ function readAccountData() {
             dataTableRef.innerHTML = '<h4>Creat New Expense</h4>';
             infoRef.innerHTML = '<h4>Have no data</h4>';
         } else {
+
             loadChart(data);
             Object.keys(data).forEach(function(key, index) {
                 str +=
@@ -72,7 +73,7 @@ function readAccountData() {
             <td></td>
             <td>${data[key].title}</td>
             <td>${data[key].type}</td>
-            <td>NT ${data[key].number}</td>
+            <td>$ ${data[key].number}</td>
             <td>${data[key].date}</td>
             <td>  
               <button type="button" class="btn btn-primary update-btn" data-id="${key}">編輯</button>
@@ -188,12 +189,15 @@ function loadChart(rawData) {
     let edu = 0;
     let Traffic = 0;
     let Others = 0;
+    let total = 0;
     const ctxRef = document.querySelector('#data-chart');
     const infoRef = document.querySelector('#data-chart-info');
+    const totalRef = document.querySelector('#total-number');
     for (const key in rawData) {
         if (rawData.hasOwnProperty(key)) {
             const type = rawData[key].type;
             const number = rawData[key].number;
+            total += parseInt(number);
             switch (type) {
                 case 'Meal':
                     Meal += parseInt(number);
@@ -216,6 +220,7 @@ function loadChart(rawData) {
             }
         }
     }
+    // totalRef.innerHTML = `$ ${total}`;
     const data = {
         labels: [
             'Meal',
