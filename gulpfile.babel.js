@@ -128,10 +128,28 @@ gulp.task('scripts', ['cleanScripts'], () => {
     //     .on('error', gutil.log.bind(gutil, 'Browserify Error'))
     //     .pipe(source('bundle.js')) // gives streaming vinyl file object
     //     .pipe(buffer()) // 從 streaming 轉回 buffered vinyl 檔案 <----- convert from streaming to buffered vinyl file object
-
-    return browserify({ entries: ['./src/scripts/main.js'] })
+    return browserify({
+            entries: ['./src/scripts/main.js'],
+            debug: true
+        })        
         .transform(babelify) // 轉譯
         .bundle()
+        .on('error', function (err) {
+            // console.log(err.toString());
+            // console.log(err.message);
+            // notify('Error: ' + err.message); 無法出現
+            gutil.log(gutil.colors.red('Error: ' + err.message));
+            this.emit("end");
+        })
+        // .on("error", function(err) {
+        //         gutil.log(
+        //             gutil.colors.red("Browserify compile error:"), 
+        //             err.message, 
+        //             "\n\t", 
+        //             gutil.colors.cyan("in file"), 
+        //             file.path
+        //         )
+        //     })
         // .pipe(plumber({ errorHandler: notify.onError("Error: <%= error.message %>") }))
         // .pipe(through2(function() {
         //     this.emit("error", new Error("Something happend: Error message!"))
