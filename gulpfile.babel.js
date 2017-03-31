@@ -167,8 +167,8 @@ gulp.task('scripts', ['cleanScripts'], () => {
         .on('error', gutil.log)
         .pipe(sourcemaps.write('./'))
         .pipe(gulp.dest(scriptsPaths.dest))
-        .pipe(notify("Finish JS"))
-        .pipe(connect.reload());
+        .pipe(connect.reload())
+        .pipe(notify("Finish JS"));
 });
 
 // 複製 images 任務，完成後送到 dist/images
