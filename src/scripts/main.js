@@ -76,8 +76,8 @@ function readAccountData() {
             <td>$ ${data[key].number}</td>
             <td>${data[key].date}</td>
             <td>  
-              <button type="button" class="btn btn-primary update-btn" data-id="${key}">編輯</button>
-              <button type="button" class="btn btn-danger delete-btn" data-id="${key}">刪除</button>
+              <button type="button" class="btn btn-primary update-btn" data-id="${key}">Update</button>
+              <button type="button" class="btn btn-danger delete-btn" data-id="${key}">Delete</button>
             </td>
             <td></td>
           </tr>

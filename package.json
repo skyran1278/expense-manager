@@ -29,6 +29,7 @@
     "gulp-uglify": "^2.0.0",
     "gulp-util": "^3.0.8",
     "lodash.assign": "^4.2.0",
+    "through": "^2.3.8",
     "through2": "^2.0.3",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",

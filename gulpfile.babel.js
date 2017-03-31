@@ -18,6 +18,7 @@ import del from 'del';
 import plumber from 'gulp-plumber';
 import notify from 'gulp-notify';
 import through2 from 'through2';
+import through from 'through';
 import watchify from 'watchify';
 import assign from 'lodash.assign';
 // var assign = require('lodash.assign');
@@ -81,12 +82,12 @@ gulp.task('cleanJson', function() {
 // 編譯 Scss 任務，完成後送到 dist/css/main.css
 gulp.task('styles', ['cleanStyles'], () => {
     return gulp.src(stylesPaths.src)
-        // .pipe(plumber({ errorHandler: notify.onError("Error: <%= error.message %>") }))
-        // .pipe(through2(function() {
+        .pipe(plumber({ errorHandler: notify.onError("\n\n" + gutil.colors.bgRed.white("\n" + "Error:" + "\n\n" + "<%= error.message %>") + "\n\n") }))
+        // .pipe(through(function() {
         //     this.emit("error", new Error("Something happend: Error message!"))
         // }))
-        .pipe(plumber())
-        .pipe(sass().on('error', sass.logError)) // 編譯 Scss
+        // .pipe(plumber())
+        .pipe(sass()) // 編譯 Scss .on('error', sass.logError) //已經有通知，可以不需要
         .pipe(sourcemaps.init({ loadMaps: true }))
         .pipe(cleanCSS({ debug: true }, function(details) {
             console.log(`css-originalSize: ${(details.stats.originalSize/1024).toFixed(2)} KB`); //details.name
@@ -131,14 +132,17 @@ gulp.task('scripts', ['cleanScripts'], () => {
     return browserify({
             entries: ['./src/scripts/main.js'],
             debug: true
-        })        
+        })
         .transform(babelify) // 轉譯
         .bundle()
-        .on('error', function (err) {
-            // console.log(err.toString());
+        .on('error', function(err) {
+            // console.log(err.toString()); console.error.bind
             // console.log(err.message);
             // notify('Error: ' + err.message); 無法出現
-            gutil.log(gutil.colors.red('Error: ' + err.message));
+            // gutil.log(gutil.colors.red("Browserify compile error:") + err.message + "\n\t" + gutil.colors.cyan("in file"));
+            gutil.log("\n\n" + gutil.colors.bgRed("\n" + 'Browserify compile error: ' + "\n\n" + err.message + "\n") + "\n\n");
+            // notify("JS Error");
+            // gutil.beep();
             this.emit("end");
         })
         // .on("error", function(err) {
@@ -156,14 +160,15 @@ gulp.task('scripts', ['cleanScripts'], () => {
         // }))
         .pipe(source('bundle.js')) // gives streaming vinyl file object
         .pipe(buffer()) // 從 streaming 轉回 buffered vinyl 檔案 <----- convert from streaming to buffered vinyl file object
-        .pipe(plumber())
+        // .pipe(plumber())
+        .pipe(plumber({ errorHandler: notify.onError("\n\n" + gutil.colors.bgRed.white("\n" + "Error:" + "\n\n" + "<%= error.message %>") + "\n\n") }))
         .pipe(sourcemaps.init({ loadMaps: true })) // 由於我們壓縮了檔案，要用 sourcemaps 來對應原始文件方便除錯
         .pipe(uglify()) // 壓縮檔案 now gulp-uglify works
         .on('error', gutil.log)
         .pipe(sourcemaps.write('./'))
         .pipe(gulp.dest(scriptsPaths.dest))
-        .pipe(connect.reload())
-        .pipe(notify("Reload JavaScript Finish"));
+        .pipe(notify("Finish JS"))
+        .pipe(connect.reload());
 });
 
 // 複製 images 任務，完成後送到 dist/images
