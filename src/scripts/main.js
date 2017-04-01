@@ -1,40 +1,215 @@
 import uuid from 'uuid';
-import Chart from 'chart.js'
+import Chart from 'chart.js';
 
-var config = {
-    apiKey: "AIzaSyA5p1Hl_sxOPsvcsSJQ9Ja5POe6HtyudOk",
-    authDomain: "test-d75f6.firebaseapp.com",
-    databaseURL: "https://test-d75f6.firebaseio.com",
-    storageBucket: "test-d75f6.appspot.com",
-    messagingSenderId: "389657327548"
+const config = {
+    apiKey: 'AIzaSyA5p1Hl_sxOPsvcsSJQ9Ja5POe6HtyudOk',
+    authDomain: 'test-d75f6.firebaseapp.com',
+    databaseURL: 'https://test-d75f6.firebaseio.com',
+    storageBucket: 'test-d75f6.appspot.com',
+    messagingSenderId: '389657327548'
 };
 
 firebase.initializeApp(config);
 const database = firebase.database();
 
-// var provider = new firebase.auth.GoogleAuthProvider(); 
-// firebase.auth().signInWithPopup(provider).then(function(result) {      
-//   var token         = result.credential.accessToken;      
+// var provider = new firebase.auth.GoogleAuthProvider();
+// firebase.auth().signInWithPopup(provider).then(function(result) {
+//   var token         = result.credential.accessToken;
 //   var user          = result.user;      // 使用者資訊
 // }).catch(function(error) {
 //   // 處理錯誤
 //   var errorCode     = error.code;
-//   var errorMessage  = error.message;     
+//   var errorMessage  = error.message;
 //   var email         = error.email;      // 使用者所使用的 Email
-//   var credential    = error.credential;      
+//   var credential    = error.credential;
 // });
 
 function writeAccountData(id, title, type, number, date) {
-    const accountRef = database.ref('skyran/' + id);
+    const accountRef = database.ref(`skyran/${id}`);
     accountRef.set({
-        title: title,
-        type: type,
-        number: number,
-        date: date
+        title,
+        type,
+        number,
+        date
     });
-    accountRef.on('value', function(snapshot) {
-        console.log('success');
+    accountRef.on('value', () => {
+        // console.log('success');
         window.location = './index.html';
+    });
+}
+
+function updateBtnListener() {
+    const updateBtns = document.querySelectorAll('.update-btn');
+    // console.log(updateBtns);
+    for (let i = 0; i < updateBtns.length; i += 1) {
+        updateBtns[i].addEventListener('click', (e) => {
+            const id = updateBtns[i].getAttribute('data-id');
+            e.preventDefault();
+            const accountRef = database.ref(`skyran/${id}`);
+            accountRef.on('value', (snapshot) => {
+                // window.location = '/update.html?id=' + id +
+                // '&title=' + snapshot.val().title + '&type=' + snapshot.val().type +
+                // '&number=' + snapshot.val().number + '&date=' + snapshot.val().date;
+                window.location = `/update.html?id=${id}&title=${snapshot.val().title}&type=${snapshot.val().type}&number=${snapshot.val().number}&date=${snapshot.val().date}`;
+            });
+        });
+    }
+}
+
+function deleteData(id) {
+    const accountRef = database.ref(`skyran/${id}`);
+    accountRef.remove();
+    accountRef.on('value', () => {
+        // console.log('success');
+        // let str =
+        //             `
+        //     <div class="alert alert-warning alert-dismissible" role="alert">
+        //         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        // <span aria-hidden="true">&times;</span></button>
+        //         <strong>Warning!</strong> Better check yourself, you're not looking too good.
+        //     </div>
+        // `;
+        // document.querySelector('#messenge').innerHTML = str;
+        window.location = './index.html';
+    });
+}
+
+function deleteBtnListener() {
+    const deleteBtns = document.querySelectorAll('.delete-btn');
+    // console.log(deleteBtns);
+    for (let i = 0; i < deleteBtns.length; i += 1) {
+        deleteBtns[i].addEventListener('click', (e) => {
+            const id = deleteBtns[i].getAttribute('data-id');
+            e.preventDefault();
+            // if (confirm('確認刪除？')) {
+            //     deleteData(id);
+            // } else {
+            //     alert('你按下取消');
+            // }
+            deleteData(id);
+        });
+    }
+}
+
+function loadChart(rawData) {
+    let Meal = 0;
+    let Life = 0;
+    let Entertainment = 0;
+    let Traffic = 0;
+    let Others = 0;
+    // let total = 0;
+    const ctxRef = document.querySelector('#data-chart');
+    // const infoRef = document.querySelector('#data-chart-info');
+    // const totalRef = document.querySelector('#total-number');
+    // console.log(rawData);
+    // console.log(Object.keys(rawData));
+    // console.log(Object.keys(rawData).forEach((key) => {
+    //     console.log(rawData[key]);
+    //     console.log(key);
+    // }));
+    Object.keys(rawData).forEach((key) => {
+        const type = rawData[key].type;
+        const number = rawData[key].number;
+        // total += parseInt(number);
+        switch (type) {
+            case 'Meal':
+                Meal += parseInt(number, 10);
+                break;
+            case 'Life':
+                Life += parseInt(number, 10);
+                break;
+            case 'Entertainment':
+                Entertainment += parseInt(number, 10);
+                break;
+            case 'Traffic':
+                Traffic += parseInt(number, 10);
+                break;
+            default:
+                Others += parseInt(number, 10);
+                break;
+        }
+    });
+    // for (const key in rawData) {
+    //     if (rawData.hasOwnProperty(key)) {
+    //         const type = rawData[key].type;
+    //         const number = rawData[key].number;
+    //         // total += parseInt(number);
+    //         switch (type) {
+    //             case 'Meal':
+    //                 Meal += parseInt(number);
+    //                 break;
+    //             case 'Life':
+    //                 Life += parseInt(number);
+    //                 break;
+    //             case 'Entertainment':
+    //                 Entertainment += parseInt(number);
+    //                 break;
+    //             case 'edu':
+    //                 edu += parseInt(number);
+    //                 break;
+
+    //             case 'Traffic':
+    //                 Traffic += parseInt(number);
+    //                 break;
+
+    //             case 'Others':
+    //                 Others += parseInt(number);
+    //                 break;
+    //         }
+    //     }
+    // }
+    // totalRef.innerHTML = `$ ${total}`;
+    const data = {
+        labels: [
+            'Meal',
+            'Life',
+            'Entertainment',
+            'Traffic',
+            'Others'
+        ],
+        datasets: [{
+                label: '',
+                data: [Meal, Life, Entertainment, Traffic, Others],
+                backgroundColor: [
+                    'rgba(91, 192, 235, 0.9)',
+                    'rgba(253, 231, 76, 0.9)',
+                    'rgba(155, 197, 61, 0.9)',
+                    'rgba(229, 89, 52, 0.9)',
+                    'rgba(250, 121, 33, 0.9)'
+                ],
+                borderColor: [
+                    'rgba(91, 192, 235, 1)',
+                    'rgba(253, 231, 76,1)',
+                    'rgba(155, 197, 61,1)',
+                    'rgba(229, 89, 52,1)',
+                    'rgba(250, 121, 33,1)'
+                ],
+                borderWidth: 1
+            }]
+            // options: {
+            //     legend: {
+            //         display: false,
+            //     },
+            //     scales: {
+            //         xAxes: [{
+            //             stacked: true
+            //         }],
+            //         yAxes: [{
+            //             stacked: true
+            //         }]
+            //     }
+            // }
+    };
+    // const myPieChart = new Chart(ctxRef, {
+    const myChart = new Chart(ctxRef, {
+    // Chart(ctxRef, {
+        data,
+        type: 'bar',
+        options: {
+            legend: {
+                display: false
+            }
+        }
     });
 }
 
@@ -56,17 +231,16 @@ function readAccountData() {
     const infoRef = document.querySelector('#data-chart-info');
     const dataTableRef = document.querySelector('#data-table');
 
-    accountRef.once('value').then(function(snapshot) {
+    accountRef.once('value').then((snapshot) => {
         const data = snapshot.val();
-        console.log(data);
+        // console.log(data);
         if (data === null) {
             // str += '<h4>目前沒有資料喔！</h4>';
             dataTableRef.innerHTML = '<h4>Creat New Expense</h4>';
             infoRef.innerHTML = '<h4>Have no data</h4>';
         } else {
-
             loadChart(data);
-            Object.keys(data).forEach(function(key, index) {
+            Object.keys(data).forEach((key) => {
                 str +=
                     `
           <tr>
@@ -92,8 +266,8 @@ function readAccountData() {
 
 function readFormData() {
     const params = window.location.search.replace('?', '').split('&');
-    console.log(params);
-    const addFormRef = document.querySelector("#add-form");
+    // console.log(params);
+    const addFormRef = document.querySelector('#add-form');
     addFormRef.title.value = decodeURI(params[1].split('=')[1]);
     addFormRef.type.value = params[2].split('=')[1];
     addFormRef.number.value = params[3].split('=')[1];
@@ -101,41 +275,24 @@ function readFormData() {
 }
 
 function updateData(id, title, type, number, date) {
-    const accountRef = database.ref('skyran/' + id);
+    const accountRef = database.ref(`skyran/${id}`);
     accountRef.update({
-        title: title,
-        type: type,
-        number: number,
-        date: date
+        title,
+        type,
+        number,
+        date
     });
-    accountRef.on('value', function(snapshot) {
+    accountRef.on('value', () => {
         // console.log('success');
-        window.location = './index.html';
-    });
-}
-
-function deleteData(id) {
-    const accountRef = database.ref('skyran/' + id);
-    accountRef.remove();
-    accountRef.on('value', function(snapshot) {
-        // console.log('success');
-        // let str =
-        //             `
-        //     <div class="alert alert-warning alert-dismissible" role="alert">
-        //         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        //         <strong>Warning!</strong> Better check yourself, you're not looking too good.
-        //     </div>  
-        // `;
-        // document.querySelector('#messenge').innerHTML = str;
         window.location = './index.html';
     });
 }
 
 function submitListener(submitType) {
-    const addFormRef = document.querySelector("#add-form");
-    addFormRef.addEventListener('submit', function(e) {
+    const addFormRef = document.querySelector('#add-form');
+    addFormRef.addEventListener('submit', (e) => {
         e.preventDefault();
-        const id = uuid.v1(); //random
+        let id = uuid.v4(); // random
         const title = addFormRef.title.value;
         const type = addFormRef.type.value;
         const number = addFormRef.number.value;
@@ -144,131 +301,8 @@ function submitListener(submitType) {
             writeAccountData(id, title, type, number, date);
         } else {
             const params = window.location.search.replace('?', '').split('&');
-            const id = params[0].split('=')[1];
+            id = params[0].split('=')[1];
             updateData(id, title, type, number, date);
-        }
-    });
-}
-
-function updateBtnListener() {
-    const updateBtns = document.querySelectorAll(".update-btn");
-    console.log(updateBtns);
-    for (let i = 0; i < updateBtns.length; i++) {
-        updateBtns[i].addEventListener('click', function(e) {
-            const id = updateBtns[i].getAttribute('data-id');
-            e.preventDefault();
-            const accountRef = database.ref('skyran/' + id);
-            accountRef.on('value', function(snapshot) {
-                window.location = '/update.html?id=' + id + '&title=' + snapshot.val().title + '&type=' + snapshot.val().type + '&number=' + snapshot.val().number + '&date=' + snapshot.val().date;
-            });
-        });
-    }
-}
-
-function deleteBtnListener() {
-    const deleteBtns = document.querySelectorAll(".delete-btn");
-    console.log(deleteBtns);
-    for (let i = 0; i < deleteBtns.length; i++) {
-        deleteBtns[i].addEventListener('click', function(e) {
-            const id = deleteBtns[i].getAttribute('data-id');
-            e.preventDefault();
-            // if (confirm('確認刪除？')) {
-            //     deleteData(id);
-            // } else {
-            //     alert('你按下取消');
-            // }
-            deleteData(id);
-        });
-    }
-}
-
-function loadChart(rawData) {
-    let Meal = 0;
-    let Life = 0;
-    let Entertainment = 0;
-    let edu = 0;
-    let Traffic = 0;
-    let Others = 0;
-    let total = 0;
-    const ctxRef = document.querySelector('#data-chart');
-    const infoRef = document.querySelector('#data-chart-info');
-    const totalRef = document.querySelector('#total-number');
-    for (const key in rawData) {
-        if (rawData.hasOwnProperty(key)) {
-            const type = rawData[key].type;
-            const number = rawData[key].number;
-            total += parseInt(number);
-            switch (type) {
-                case 'Meal':
-                    Meal += parseInt(number);
-                    break;
-                case 'Life':
-                    Life += parseInt(number);
-                    break;
-                case 'Entertainment':
-                    Entertainment += parseInt(number);
-                    break;
-                case 'edu':
-                    edu += parseInt(number);
-                    break;
-                case 'Traffic':
-                    Traffic += parseInt(number);
-                    break;
-                case 'Others':
-                    Others += parseInt(number);
-                    break;
-            }
-        }
-    }
-    // totalRef.innerHTML = `$ ${total}`;
-    const data = {
-        labels: [
-            'Meal',
-            'Life',
-            'Entertainment',
-            'Traffic',
-            'Others'
-        ],
-        datasets: [{
-            label: "",
-            data: [Meal, Life, Entertainment, Traffic, Others],
-            backgroundColor: [
-                'rgba(91, 192, 235, 0.9)',
-                'rgba(253, 231, 76, 0.9)',
-                'rgba(155, 197, 61, 0.9)',
-                'rgba(229, 89, 52, 0.9)',
-                'rgba(250, 121, 33, 0.9)'
-            ],
-            borderColor: [
-                'rgba(91, 192, 235, 1)',
-                'rgba(253, 231, 76,1)',
-                'rgba(155, 197, 61,1)',
-                'rgba(229, 89, 52,1)',
-                'rgba(250, 121, 33,1)'
-            ],
-            borderWidth: 1
-        }],
-        // options: {
-        //     legend: {
-        //         display: false,
-        //     },
-        //     scales: {
-        //         xAxes: [{
-        //             stacked: true
-        //         }],
-        //         yAxes: [{
-        //             stacked: true
-        //         }]
-        //     }
-        // }
-    };
-    const myPieChart = new Chart(ctxRef, {
-        type: 'bar',
-        data: data,
-        options: {
-            legend: {
-                display: false
-            }
         }
     });
 }
@@ -286,3 +320,160 @@ switch (path) {
     default:
         readAccountData();
 }
+
+
+// -----------------------------------------
+
+// const chart = require('chart.js');
+// const MongoClient = require('mongodb').MongoClient;
+// const assert = require('assert');
+// const ObjectId = require('mongodb').ObjectID;
+// const url = 'mongodb://b02501016-hw2:cAlI1pTPQkRRBH6qoZdmHFIlo2cXe3szdeWIXZa0O8cXxNMbhPjVVj0FcJn9STnHlzJUnLbGlubivOkV5QGxSQ==@b02501016-hw2.documents.azure.com:10250/?ssl=true';
+
+// // var insertDocument = function(title, type, number, date, db, callback) {
+
+// //  db.collection('skyran').insertOne( {
+// //         title: title,
+// //         type: type,
+// //         number: number,
+// //         date: date
+// //  },
+// //  function(err, result) {
+// //      assert.equal(err, null);
+// //      console.log("Inserted a document into the skyran collection.");
+// //      callback();
+// //  });
+
+// // };
+
+// // var findDocument = function(db, callback) {
+// //    var cursor =db.collection('skyran').find( { "borough": "Manhattan" } );
+// //    cursor.each(function(err, doc) {
+// //       assert.equal(err, null);
+// //       if (doc != null) {
+// //          console.dir(doc);
+// //       } else {
+// //          callback();
+// //       }
+// //    });
+// // };
+
+// // var updateDocument = function(db, callback) {
+// //    db.collection('skyran').updateOne(
+// //       { "name" : "Juni" },
+// //       {
+// //         $set: { "cuisine": "American (New)" },
+// //         $currentDate: { "lastModified": true }
+// //       }, function(err, results) {
+// //       console.log(results);
+// //       callback();
+// //    });
+// // };
+
+// // var removeDocument = function(db, callback) {
+// //    db.collection('skyran').deleteOne(
+// //       { "borough": "Queens" },
+// //       function(err, results) {
+// //          console.log(results);
+// //          callback();
+// //       }
+// //    );
+// // };
+
+// // function submitListener(submitType) {
+// //     const addFormRef = document.querySelector("#add-form");
+// //     addFormRef.addEventListener('submit', function(e) {
+// //         e.preventDefault();
+// //         const title = addFormRef.title.value;
+// //         const type = addFormRef.type.value;
+// //         const number = addFormRef.number.value;
+// //         const date = addFormRef.date.value;
+// //         if (submitType === 'create') {
+// //             insertDocument(title, type, number, date,  db, function() {
+// //              db.close();
+// //              window.location = './';
+// //          });
+// //         } else {
+// //             const params = window.location.search.replace('?', '').split('&');
+// //             const id = params[0].split('=')[1];
+// //             updateData(id, title, type, number, date);
+// //         }
+// //     });
+// // }
+
+// // MongoClient.connect(url, function(err, db) {
+// //  assert.equal(null, err);
+// //  // insertDocument('id', 'title', 'type', 'number', 'date', db, function() {
+// //  //  db.close();
+// //  //  window.location = './';
+// //  // });
+// //  function submitListener(submitType) {
+// //      const addFormRef = document.querySelector("#add-form");
+// //      addFormRef.addEventListener('submit', function(e) {
+// //          e.preventDefault();
+// //          const title = addFormRef.title.value;
+// //          const type = addFormRef.type.value;
+// //          const number = addFormRef.number.value;
+// //          const date = addFormRef.date.value;
+// //          insertDocument(title, type, number, date,  db, function() {
+// //                  db.close();
+// //                  window.location = './';
+// //          });
+// //     //      if (submitType === 'create') {
+// //     //          insertDocument(title, type, number, date,  db, function() {
+// //              //  db.close();
+// //              //  window.location = './';
+// //              // });
+// //     //      } else {
+// //     //          const params = window.location.search.replace('?', '').split('&');
+// //     //          const id = params[0].split('=')[1];
+// //     //          updateData(id, title, type, number, date);
+// //     //      }
+// //      });
+// //  }
+// //  // findDocument(db, function() {
+// //  //      db.close();
+// //  //      });
+// //  // updateDocument(db, function() {
+// //  //      db.close();
+// //  //      });
+// //  // removeDocument(db, function() {
+// //  //      db.close();
+// //  //      });
+
+// // });
+
+// MongoClient.connect(url, function(err, db) {
+//     console.log('主機連線成功');
+
+//     var data1 = {
+//         "type": "晚餐",
+//         "cost": 300,
+//         //"date": new Date(2017, 03, 22, 15, 17),
+//         "update": Date.now()
+//     };
+
+//     // 插入資料
+//     db.collection('skyran').insertOne(data1, function(err, result) {
+//         console.log("插入資料成功");
+//     });
+
+//     // function submitListener(submitType) {
+//     //     const addFormRef = document.querySelector("#add-form");
+//     //     addFormRef.addEventListener('submit', function(e) {
+//     //         e.preventDefault();
+//     //         const title = addFormRef.title.value;
+//     //         const type = addFormRef.type.value;
+//     //         const number = addFormRef.number.value;
+//     //         const date = addFormRef.date.value;
+//     //         insertDocument(title, type, number, date,  db, function() {
+//     //             console.log("插入資料成功");
+//     //             window.location = './';
+//     //         });
+//     //     });
+//     // }
+
+
+//     db.close();
+// });
+
