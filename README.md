@@ -12,6 +12,12 @@
 >
 > It can find your direction if you get used to its 'Manager'!
 
+## Chrome extension
+Adds a Sizzy button in the Chrome toolbar, which on click opens any page directly into Sizzy.
+
+[Chrome Extension](/)  
+[Source](https://github.com/skyran1278/20170324_ExpenseManager/tree/firebase/dist)
+
 ## Changelog
 
 Details changes for each release are documented in the [release notes](https://github.com/skyran1278/20170324_ExpenseManager/releases).
