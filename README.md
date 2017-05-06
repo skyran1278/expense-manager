@@ -16,7 +16,7 @@
 
 Adds a Expense Manager in the Chrome, which on click new blank opens page directly into Expense Manager.
 
-[Chrome Extension](/)  
+[Chrome Extension](https://github.com/skyran1278/20170324_ExpenseManager)  
 [Source](https://github.com/skyran1278/20170324_ExpenseManager/tree/firebase/dist)
 
 ## Changelog
