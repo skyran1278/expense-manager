@@ -6,4 +6,12 @@
   <a href="/"><img src="https://img.shields.io/github/license/skyran1278/20170324-Account.svg" alt="License"></a>  
 </p>
 
+## Expense Manager
 
+> Expense Manager is not just a expense record.
+>
+> It can find your direction if you get used to its 'Manager'!
+
+## Changelog
+
+Details changes for each release are documented in the [release notes](https://github.com/skyran1278/20170324_ExpenseManager/releases).
