@@ -13,7 +13,8 @@
 > It can find your direction if you get used to its 'Manager'!
 
 ## Chrome extension
-Adds a Sizzy button in the Chrome toolbar, which on click opens any page directly into Sizzy.
+
+Adds a Expense Manager in the Chrome, which on click new blank opens page directly into Expense Manager.
 
 [Chrome Extension](/)  
 [Source](https://github.com/skyran1278/20170324_ExpenseManager/tree/firebase/dist)
