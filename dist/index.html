@@ -3,16 +3,16 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+ <!--    <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-    <meta name="HandheldFriendly" content="true">
+    <meta name="HandheldFriendly" content="true"> -->
     <title>Expense Manager</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="./css/main.css">
-    <link rel="shortcut icon" type="image/x-icon" href="./img/icon16.ico">
-    <link rel="icon" href="./img/icon16.ico">
-    <link rel="apple-touch-icon-precomposed" sizes="128x128" href="./img/icon128.png">
+    <link rel="shortcut icon" type="image/x-icon" href="./img/favicon.ico">
+    <link rel="icon" href="./img/favicon.ico">
+    <!-- <link rel="apple-touch-icon-precomposed" sizes="128x128" href="./img/icon128.png"> -->
 </head>
 
 <body>
@@ -26,7 +26,7 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="#">
-                    <img alt="Brand" src="./img/icon19.png" onError="this.onerror=null;this.src='./img/icon700.svg;">
+                    <img alt="Brand" src="./img/icon_48.png" onError="this.onerror=null;this.src='./img/icon700.svg;">
                 </a>
                 <a class="navbar-brand" href="./index.html">Expense Manager</a>
             </div>
@@ -41,13 +41,18 @@
     <div class="container-fluid">
         <div class="col-md-12">
             <div>
-                <h3>Data</h3>
+                <!-- <h3>Data</h3> -->
                 <h4 class="text-center" id="total-number"></h4>
                 <div id="data-chart-info"></div>
+                <canvas id="data-income-chart" width="1000" height="200"></canvas>
+            </div>
+            <hr>
+            <div>
+                <!-- <h3>Data</h3> -->
                 <canvas id="data-chart" width="1000" height="200"></canvas>
             </div>
             <div>
-                <h3>Detailed Expenditure</h3>
+                <!-- <h3>Detailed Expenditure</h3> -->
                 <table class="table table-hover" id="data-table"></table>
             </div>
             <div>

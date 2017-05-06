@@ -97,8 +97,11 @@ function loadChart(rawData) {
     let Entertainment = 0;
     let Traffic = 0;
     let Others = 0;
+    let Expense = 0;
+    let Income = 0;
     // let total = 0;
-    const ctxRef = document.querySelector('#data-chart');
+    const ctxDataChart = document.querySelector('#data-chart');
+    const ctxDataIncomeChart = document.querySelector('#data-income-chart');
     // const infoRef = document.querySelector('#data-chart-info');
     // const totalRef = document.querySelector('#total-number');
     // console.log(rawData);
@@ -107,6 +110,12 @@ function loadChart(rawData) {
     //     console.log(rawData[key]);
     //     console.log(key);
     // }));
+
+    function plusExpense(number) {
+        // body...
+        Expense += parseInt(number, 10);
+    }
+
     Object.keys(rawData).forEach((key) => {
         const type = rawData[key].type;
         const number = rawData[key].number;
@@ -114,21 +123,32 @@ function loadChart(rawData) {
         switch (type) {
             case 'Meal':
                 Meal += parseInt(number, 10);
+                plusExpense(number);
                 break;
             case 'Life':
                 Life += parseInt(number, 10);
+                plusExpense(number);
                 break;
             case 'Entertainment':
                 Entertainment += parseInt(number, 10);
+                plusExpense(number);
                 break;
             case 'Traffic':
                 Traffic += parseInt(number, 10);
+                plusExpense(number);
+                break;
+            case 'Others':
+                Others += parseInt(number, 10);
+                plusExpense(number);
                 break;
             default:
-                Others += parseInt(number, 10);
+                Income += parseInt(number, 10);
                 break;
         }
     });
+    // console.log(Expense);
+    // console.log(Income);
+
     // for (const key in rawData) {
     //     if (rawData.hasOwnProperty(key)) {
     //         const type = rawData[key].type;
@@ -159,6 +179,38 @@ function loadChart(rawData) {
     //     }
     // }
     // totalRef.innerHTML = `$ ${total}`;
+
+    const incomeData = {
+        labels: [
+            'Income',
+            'Expense'
+        ],
+        datasets: [{
+            // label: '',
+            data: [Income, Expense],
+            backgroundColor: [
+                'rgba(91, 192, 235, 1)',
+                'rgba(155, 197, 61,1)'
+            ]
+            // borderColor: [
+            //     'rgba(102, 153, 204, 1)',
+            //     'rgba(250, 121, 33,1)'
+            // ],
+            // borderWidth: 1
+        }]
+    };
+
+    const DataIncomeChart = new Chart(ctxDataIncomeChart, {
+        // Chart(ctxRef, {
+        data: incomeData,
+        type: 'doughnut'
+        // options: {
+        //     legend: {
+        //         display: false
+        //     }
+        // }
+    });
+
     const data = {
         labels: [
             'Meal',
@@ -201,8 +253,8 @@ function loadChart(rawData) {
             // }
     };
     // const myPieChart = new Chart(ctxRef, {
-    const myChart = new Chart(ctxRef, {
-    // Chart(ctxRef, {
+    const dataChart = new Chart(ctxDataChart, {
+        // Chart(ctxRef, {
         data,
         type: 'bar',
         options: {
@@ -225,7 +277,7 @@ function readAccountData() {
         <th class="col-md-2">Edit</th>
         <th class="col-md-1"></th>
       </tr>
-    </thead>  
+    </thead>
   `;
     const accountRef = database.ref('skyran/');
     const infoRef = document.querySelector('#data-chart-info');
@@ -249,7 +301,7 @@ function readAccountData() {
             <td>${data[key].type}</td>
             <td>$ ${data[key].number}</td>
             <td>${data[key].date}</td>
-            <td>  
+            <td>
               <button type="button" class="btn btn-primary update-btn" data-id="${key}">Update</button>
               <button type="button" class="btn btn-danger delete-btn" data-id="${key}">Delete</button>
             </td>
@@ -476,4 +528,3 @@ switch (path) {
 
 //     db.close();
 // });
-

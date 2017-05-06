@@ -1,24 +1,24 @@
 {
-    "name": "AccountTab",
-    "version": "0.0.2",
-    "manifest_version": 2,
+    "name": "ExpenseTab",
+    "version": "0.1.2",
+    "manifest_version": 3,
     "description": "Account Tab",
-    "short_name": "AccountTab",  
+    "short_name": "ExpenseTab",
     "icons": {
-        "16": "./img/icon16.png",
-        "48": "./img/icon48.png",
-        "128": "./img/icon128.png"
-        
+        "16": "./img/icon_16.png",
+        "48": "./img/icon_48.png",
+        "128": "./img/icon_128.png"
+
     },
     "background": {
         "scripts": ["./js/bundle.js"]
-        
+
     },
     "chrome_url_overrides": {
         "newtab": "index.html"
     },
     "permissions": [
         "tabs"
-    ],    
+    ],
     "content_security_policy": "script-src 'self' https://code.jquery.com https://maxcdn.bootstrapcdn.com https://ajax.googleapis.com https://www.gstatic.com https://cdn.firebase.com https://*.firebaseio.com; object-src 'self'"
 }
