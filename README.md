@@ -1,28 +1,13 @@
-# 2017-frontend-starter-kit
+<p align="center"><a href="https://vuejs.org" target="_blank"><img width="100"src="https://vuejs.org/images/logo.png"></a></p>
 
-NodeJS/NPM/ES6/Bower/Gulp/Sass/Babel/Babelify/Browserify
+<p align="center">
+  <a href="https://circleci.com/gh/vuejs/vue/tree/dev"><img src="https://img.shields.io/circleci/project/vuejs/vue/dev.svg" alt="Build Status"></a>
+  <a href="https://codecov.io/github/vuejs/vue?branch=dev"><img src="https://img.shields.io/codecov/c/github/vuejs/vue/dev.svg" alt="Coverage Status"></a>
+  <a href="https://www.npmjs.com/package/vue"><img src="https://img.shields.io/npm/dt/vue.svg" alt="Downloads"></a>
+  <a href="https://www.npmjs.com/package/vue"><img src="https://img.shields.io/github/release/skyran1278/20170324-Account.svg" alt="Version"></a>
+  <a href="https://www.npmjs.com/package/vue"><img src="https://img.shields.io/packagist/l/skyran1278/20170324-Account.svg" alt="License"></a>
+  <br>
+  <a href="https://saucelabs.com/u/vuejs"><img src="https://saucelabs.com/browser-matrix/vuejs.svg" alt="Sauce Test Status"></a>
+</p>
 
-## Usage
 
-```
-Install Git NodeJS
-```
-
-```
-$ git clone https://github.com/skyran1278/2017-frontend-starter-kit.git
-```
-
-```
-$ npm install && bower install
-```
-
-```
-$ npm start
-```
-
-```
-localhost:7777
-```
-
-## License
-MIT
