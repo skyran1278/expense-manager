@@ -10,7 +10,7 @@
 
 > Expense Manager is not just a expense record.
 >
-> It can find your direction if you get used to its 'Manager'!
+> It can manage your life if you get used to its 'Manager'!
 
 ## Chrome extension
 
