@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+ <!--    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="HandheldFriendly" content="true"> -->
+    <title>Expense Manager</title>
+    <link rel="shortcut icon" type="image/x-icon" href="./img/favicon.ico">
+    <link rel="icon" href="./img/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="./bower_components/bootstrap/dist/css/bootstrap.min.css">
+
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> -->
+    <link rel="stylesheet" type="text/css" href="./css/main.css">
+
+    <!-- <link rel="apple-touch-icon-precomposed" sizes="128x128" href="./img/icon128.png"> -->
+</head>
+
+<body>
+    <nav class="navbar navbar-default" id="nav"></nav>
+    <div class="container-fluid">
+        <div class="col-md-12">
+            <div>
+                <!-- <h3>Data</h3> -->
+                <h4 class="text-center" id="total-number"></h4>
+                <div id="data-chart-info"></div>
+                <canvas id="data-income-chart" width="1000" height="200"></canvas>
+            </div>
+            <br>
+            <div>
+                <!-- <h3>Data</h3> -->
+                <canvas id="data-chart" width="1000" height="200"></canvas>
+            </div>
+            <div>
+                <!-- <h3>Detailed Expenditure</h3> -->
+                <table class="table table-hover" id="data-table"></table>
+            </div>
+            <div>
+                <!-- <h3 id="data-more"></h3> -->
+                <!-- <a href="./read.html"><button>More Detailed</button></a> -->
+            </div>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/3.7.3/firebase.js"></script>
+    <script type="text/javascript" src="./bower_components/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="./bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script> -->
+    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script> -->
+    <script type="text/javascript" src="./js/bundle.js"></script>
+</body>
+
+</html>
