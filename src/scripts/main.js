@@ -386,7 +386,7 @@ function readChart() {
             loadChart(data);
             }
         });
-    console.log("readChart");
+    // console.log("readChart");
 }
 
 function readAccountData() {
@@ -524,7 +524,7 @@ function submitListener(submitType) {
 }
 
 const path = window.location.pathname;
-console.log(path);
+// console.log(path);
 switch (path) {
     case '/create.html':
         productForm();
