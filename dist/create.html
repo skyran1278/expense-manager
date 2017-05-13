@@ -3,24 +3,17 @@
 
 <head>
     <meta charset="UTF-8">
- <!--    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-    <meta name="HandheldFriendly" content="true"> -->
     <title>Expense Manager</title>
     <link rel="shortcut icon" type="image/x-icon" href="./img/favicon.ico">
     <link rel="icon" href="./img/favicon.ico">
     <link rel="stylesheet" type="text/css" href="./bower_components/bootstrap/dist/css/bootstrap.min.css">
-
-    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> -->
     <link rel="stylesheet" type="text/css" href="./css/main.css">
-
-    <!-- <link rel="apple-touch-icon-precomposed" sizes="128x128" href="./img/icon128.png"> -->
 </head>
 
 <body>
+
     <nav class="navbar navbar-default" id="nav">
-        <!-- <div class="container-fluid">
+        <div class="container-fluid">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
                     <span class="sr-only">Toggle navigation</span>
@@ -28,30 +21,76 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">
-                    <img alt="Brand" src="./img/icon_48.png">
+                <a class="navbar-brand" href="./index.html">
+                    <img alt="Brand" src="./img/icon_48.png" onError="this.onerror=null;this.src='./img/icon700.svg;">
                 </a>
                 <a class="navbar-brand" href="./index.html">Expense Manager</a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="./index.html">Home</a></li>
+                    <li><a href="./read.html">Detailed</a></li>
                     <li><a href="./create.html">Create</a></li>
+                    <!-- <li><a href="#">Sign in</a></li> -->
                 </ul>
             </div>
-        </div> -->
+        </div>
     </nav>
+
+
     <div class="container-fluid">
         <h3>Create Expense</h3>
         <hr>
-        <form id="add-form"></form>
+        <form id="add-form">
+    <div class="form-group">
+        <label for="number">How much did you spend?</label>
+        <input type="number" class="form-control" name="number" id="number" placeholder="Amount of Consumption" required>
     </div>
-    <script src="https://www.gstatic.com/firebasejs/3.7.3/firebase.js"></script>
+    <div class="form-group">
+        <label for="type">Consumption Type</label>
+        <!-- <br>
+        <input class="btn btn-primary" name="type" id="type" type="button" value="Meal">
+        <input class="btn btn-info" name="type" id="type" type="button" value="Life">
+        <input class="btn btn-success" name="type" id="type" type="button" value="Entertainment">
+        <input class="btn btn-warning" name="type" id="type" type="button" value="Traffic">
+        <input class="btn btn-danger" name="type" id="type" type="button" value="Others"> -->
+        <!-- <br>
+        <div class="btn-group" role="group" aria-label="...">
+            <button type="button" class="btn btn-default ">Meal</button>
+            <button type="button" class="btn btn-default ">Life</button>
+            <button type="button" class="btn btn-default ">Entertainment</button>
+            <button type="button" class="btn btn-default ">Traffic</button>
+            <button type="button" class="btn btn-default ">Others</button>
+        </div> -->
+        <select class="form-control" name="type" id="type" required>
+            <option value="">Select</option>
+            <option value="Meal">Meal</option>
+            <option value="Life">Life</option>
+            <option value="Entertainment">Entertainment</option>
+            <option value="Traffic">Traffic</option>
+            <option value="Others">Others</option>
+            <option value="Income">Income</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="date">When did you spend?</label>
+        <input type="date" class="form-control" name="date" id="date" placeholder="2016/10/10" required>
+    </div>
+    <div class="form-group">
+        <label for="title">What did you buy?</label>
+        <input type="text" class="form-control" name="title" id="title" placeholder="Please enter the name of the consumer, Ex. Lunch, dinner, watch the movie" required>
+    </div>
+    <button type="submit" class="btn btn-success">Submit</button>
+    <a href="./index.html">
+        <button type="button" class="btn btn-default">Home</button>
+    </a>
+</form>
+    </div>
+
     <script type="text/javascript" src="./bower_components/jquery/dist/jquery.min.js"></script>
     <script type="text/javascript" src="./bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-    <!-- <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script> -->
-    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script> -->
     <script type="text/javascript" src="./js/bundle.js"></script>
-</body>
 
+</body>
 </html>
