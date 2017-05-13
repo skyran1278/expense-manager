@@ -21,6 +21,7 @@ import through2 from 'through2';
 import through from 'through';
 import watchify from 'watchify';
 import assign from 'lodash.assign';
+import debowerify from 'debowerify';
 // var assign = require('lodash.assign');
 // gulpNotify = require("gulp-notify");
 // gulpPlumber = require('gulp-plumber');
@@ -131,9 +132,11 @@ gulp.task('scripts', ['cleanScripts'], () => {
     //     .pipe(buffer()) // 從 streaming 轉回 buffered vinyl 檔案 <----- convert from streaming to buffered vinyl file object
     return browserify({
             entries: ['./src/scripts/main.js'],
+            paths: [ './node_modules', './dist/bower_components/' ],
             debug: true
         })
-        .transform(babelify) // 轉譯
+        .transform( babelify )        // 轉譯
+        .transform( debowerify )
         .bundle()
         .on('error', function(err) {
             // console.log(err.toString()); console.error.bind
@@ -147,10 +150,10 @@ gulp.task('scripts', ['cleanScripts'], () => {
         })
         // .on("error", function(err) {
         //         gutil.log(
-        //             gutil.colors.red("Browserify compile error:"), 
-        //             err.message, 
-        //             "\n\t", 
-        //             gutil.colors.cyan("in file"), 
+        //             gutil.colors.red("Browserify compile error:"),
+        //             err.message,
+        //             "\n\t",
+        //             gutil.colors.cyan("in file"),
         //             file.path
         //         )
         //     })
@@ -174,7 +177,7 @@ gulp.task('scripts', ['cleanScripts'], () => {
 // 複製 images 任務，完成後送到 dist/images
 gulp.task('images', ['cleanImages'], () => {
     return gulp.src(imagesPaths.src)
-        //.pipe(image())    
+        //.pipe(image())
         .pipe(gulp.dest(imagesPaths.dest))
         .pipe(connect.reload());
 });
@@ -182,7 +185,7 @@ gulp.task('images', ['cleanImages'], () => {
 // 複製 html 任務，完成後送到 dist
 gulp.task('html', ['cleanHtml'], () => {
     return gulp.src(rootPaths.src)
-        //.pipe(htmlmin({collapseWhitespace: true})) 
+        //.pipe(htmlmin({collapseWhitespace: true}))
         .pipe(gulp.dest(rootPaths.dest))
         .pipe(connect.reload());
 });
