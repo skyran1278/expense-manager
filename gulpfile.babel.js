@@ -51,7 +51,7 @@ const stylesPaths = {
 };
 
 const htmlPaths = {
-    src: [`${dirs.src}/*.{json,html}`, `${dirs.src}/templates/*.{json,html}`],
+    src: [`${dirs.src}/*.{json,html}`, `${dirs.src}/templates/*.{json,html}`], //增加檔案路徑，為Array
     dist: `${dirs.dist}`
 };
 
