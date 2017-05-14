@@ -42,27 +42,27 @@ import notify from 'gulp-notify';
 
 const dirs = {
     src: 'src',
-    dist: 'dist'
+    dist: 'dist',
 };
 
 const stylesPaths = {
     src: `${dirs.src}/styles/*.scss`,
-    dist: `${dirs.dist}/css`
+    dist: `${dirs.dist}/css`,
 };
 
 const htmlPaths = {
-    src: [`${dirs.src}/*.{json,html}`, `${dirs.src}/templates/*.{json,html}`], //增加檔案路徑，為Array
-    dist: `${dirs.dist}`
+    src: `${dirs.src}/*.{json,html}`,
+    dist: `${dirs.dist}`,
 };
 
 const scriptsPaths = {
     src: `${dirs.src}/scripts/*.js`,
-    dist: `${dirs.dist}/js`
+    dist: `${dirs.dist}/js`,
 };
 
 const imagesPaths = {
     src: `${dirs.src}/images/*`,
-    dist: `${dirs.dist}/img`
+    dist: `${dirs.dist}/img`,
 };
 
 
@@ -145,7 +145,7 @@ gulp.task('images', ['cleanImages'], () => {
 
 // 合併 html 與 複製 JSON，完成後送到 dist
 gulp.task('html', ['cleanHtml'], () => {
-    gulp.src(htmlPaths.src)
+    return gulp.src(htmlPaths.src)
         .pipe(fileinclude({
           prefix: '@@',
           basepath: '@file'
@@ -170,7 +170,7 @@ gulp.task('watch', () => {
     gulp.watch(stylesPaths.src, ['styles']);
     gulp.watch(scriptsPaths.src, ['scripts']);
     gulp.watch(imagesPaths.src, ['images']);
-    gulp.watch(htmlPaths.src, ['html']);
+    gulp.watch([htmlPaths.src, `${dirs.src}/templates/*.{json,html}`], ['html']);
 });
 
 // 兩種任務類型，第一種會啟動 server
