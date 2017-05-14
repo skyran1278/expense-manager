@@ -28,7 +28,7 @@ import fileinclude from 'gulp-file-include';
 import sourcemaps from 'gulp-sourcemaps';
 
 // LiveReload
-var browserSync = require('browser-sync').create();
+const browserSync = require('browser-sync').create();
 
 // 錯誤處理
 // cmd log
@@ -51,7 +51,7 @@ const stylesPaths = {
 };
 
 const htmlPaths = {
-    src: `${dirs.src}/*.{json,html}`,
+    src: [`${dirs.src}/*.{json,html}`, `${dirs.src}/templates/*.{json,html}`],
     dist: `${dirs.dist}`
 };
 
@@ -70,19 +70,19 @@ const imagesPaths = {
 //--------------------------------------------清理目標文件
 
 gulp.task('cleanStyles', () => {
-    return del([`${stylesPaths.dist}/*`]);
+    return del(`${stylesPaths.dist}/*`);
 });
 
 gulp.task('cleanScripts', () => {
-    return del([`${scriptsPaths.dist}/*`]);
+    return del(`${scriptsPaths.dist}/*`);
 });
 
 gulp.task('cleanImages', () => {
-    return del([`${imagesPaths.dist}/*`]);
+    return del(`${imagesPaths.dist}/*`);
 });
 
 gulp.task('cleanHtml', () => {
-    return del([`${htmlPaths.dist}/*.{html,json}`]);
+    return del(`${htmlPaths.dist}/*.{html,json}`);
 });
 
 
