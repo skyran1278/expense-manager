@@ -151,7 +151,7 @@ function loadChart(rawData) {
         }],
     };
 
-    const DataIncomeChart = new Chart(ctxDataIncomeChart, {
+    new Chart(ctxDataIncomeChart, {
         data: incomeData,
         type: 'doughnut',
     });
@@ -184,6 +184,7 @@ function loadChart(rawData) {
             borderWidth: 1,
         }],
     };
+
     const options = {
         legend: {
             display: false,
@@ -201,7 +202,8 @@ function loadChart(rawData) {
             }],
         },
     };
-    const dataChart = new Chart(ctxDataChart, {
+
+    new Chart(ctxDataChart, {
         data,
         type: 'bar',
         options,
