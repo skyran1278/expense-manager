@@ -1,8 +1,8 @@
 {
     "name": "ExpenseTab",
-    "version": "0.1.2",
-    "manifest_version": 3,
-    "description": "Account Tab",
+    "version": "0.1.3",
+    "manifest_version": 4,
+    "description": "Expense Tab",
     "short_name": "ExpenseTab",
     "icons": {
         "16": "./img/icon_16.png",
