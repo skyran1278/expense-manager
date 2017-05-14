@@ -1,15 +1,15 @@
 import uuid from 'uuid';
 import Chart from 'chart.js';
 import * as firebase from 'firebase';
-// var Bootstrap = require('bootstrap');
 // var jQuery = require('jquery');
+// var Bootstrap = require('bootstrap');
 
 const config = {
     apiKey: 'AIzaSyA5p1Hl_sxOPsvcsSJQ9Ja5POe6HtyudOk',
     authDomain: 'test-d75f6.firebaseapp.com',
     databaseURL: 'https://test-d75f6.firebaseio.com',
     storageBucket: 'test-d75f6.appspot.com',
-    messagingSenderId: '389657327548'
+    messagingSenderId: '389657327548',
 };
 
 firebase.initializeApp(config);
@@ -33,7 +33,7 @@ function writeAccountData(id, title, type, number, date) {
         title,
         type,
         number,
-        date
+        date,
     });
     accountRef.on('value', () => {
         window.location = './index.html';
@@ -111,49 +111,49 @@ function loadChart(rawData) {
         const number = rawData[key].number;
         // total += parseInt(number);
         switch (type) {
-            case 'Meal':
-                Meal += parseInt(number, 10);
-                plusExpense(number);
-                break;
-            case 'Life':
-                Life += parseInt(number, 10);
-                plusExpense(number);
-                break;
-            case 'Entertainment':
-                Entertainment += parseInt(number, 10);
-                plusExpense(number);
-                break;
-            case 'Traffic':
-                Traffic += parseInt(number, 10);
-                plusExpense(number);
-                break;
-            case 'Others':
-                Others += parseInt(number, 10);
-                plusExpense(number);
-                break;
-            default:
-                Income += parseInt(number, 10);
-                break;
+        case 'Meal':
+            Meal += parseInt(number, 10);
+            plusExpense(number);
+            break;
+        case 'Life':
+            Life += parseInt(number, 10);
+            plusExpense(number);
+            break;
+        case 'Entertainment':
+            Entertainment += parseInt(number, 10);
+            plusExpense(number);
+            break;
+        case 'Traffic':
+            Traffic += parseInt(number, 10);
+            plusExpense(number);
+            break;
+        case 'Others':
+            Others += parseInt(number, 10);
+            plusExpense(number);
+            break;
+        default:
+            Income += parseInt(number, 10);
+            break;
         }
     });
 
     const incomeData = {
         labels: [
             'Income',
-            'Expense'
+            'Expense',
         ],
         datasets: [{
             data: [Income, Expense],
             backgroundColor: [
                 '#36A2EB',
-                '#FF6384'
-            ]
-        }]
+                '#FF6384',
+            ],
+        }],
     };
 
     const DataIncomeChart = new Chart(ctxDataIncomeChart, {
         data: incomeData,
-        type: 'doughnut'
+        type: 'doughnut',
     });
 
     const data = {
@@ -162,49 +162,49 @@ function loadChart(rawData) {
             'Life',
             'Entertainment',
             'Traffic',
-            'Others'
+            'Others',
         ],
         datasets: [{
-                label: '',
-                data: [Meal, Life, Entertainment, Traffic, Others],
-                backgroundColor: [
-                    'rgba(91, 192, 235, 0.9)',
-                    'rgba(253, 231, 76, 0.9)',
-                    'rgba(155, 197, 61, 0.9)',
-                    'rgba(229, 89, 52, 0.9)',
-                    'rgba(250, 121, 33, 0.9)'
-                ],
-                borderColor: [
-                    'rgba(91, 192, 235, 1)',
-                    'rgba(253, 231, 76,1)',
-                    'rgba(155, 197, 61,1)',
-                    'rgba(229, 89, 52,1)',
-                    'rgba(250, 121, 33,1)'
-                ],
-                borderWidth: 1
-            }]
+            label: '',
+            data: [Meal, Life, Entertainment, Traffic, Others],
+            backgroundColor: [
+                'rgba(91, 192, 235, 0.9)',
+                'rgba(253, 231, 76, 0.9)',
+                'rgba(155, 197, 61, 0.9)',
+                'rgba(229, 89, 52, 0.9)',
+                'rgba(250, 121, 33, 0.9)',
+            ],
+            borderColor: [
+                'rgba(91, 192, 235, 1)',
+                'rgba(253, 231, 76,1)',
+                'rgba(155, 197, 61,1)',
+                'rgba(229, 89, 52,1)',
+                'rgba(250, 121, 33,1)',
+            ],
+            borderWidth: 1,
+        }],
     };
     const options = {
         legend: {
-            display: false
+            display: false,
         },
         scales: {
             xAxes: [{
                 gridLines: {
-                    display: false
-                }
+                    display: false,
+                },
             }],
             yAxes: [{
                 ticks: {
-                    min: 0
-                }
-            }]
-        }
+                    min: 0,
+                },
+            }],
+        },
     };
     const dataChart = new Chart(ctxDataChart, {
         data,
         type: 'bar',
-        options
+        options,
     });
 }
 
@@ -218,8 +218,8 @@ function readChart() {
             infoRef.innerHTML = '<h4>Have no data</h4>';
         } else {
             loadChart(data);
-            }
-        });
+        }
+    });
 }
 
 function readAccountData() {
@@ -306,7 +306,7 @@ function updateData(id, title, type, number, date) {
         title,
         type,
         number,
-        date
+        date,
     });
     accountRef.on('value', () => {
         window.location = './read.html';
@@ -335,16 +335,16 @@ function submitListener(submitType) {
 const path = window.location.pathname;
 // console.log(path);
 switch (path) {
-    case '/create.html':
-        submitListener('create');
-        break;
-    case '/update.html':
-        readFormData();
-        submitListener('update');
-        break;
-    case '/read.html':
-        readAccountData();
-        break;
-    default:
-        readChart();
+case '/create.html':
+    submitListener('create');
+    break;
+case '/update.html':
+    readFormData();
+    submitListener('update');
+    break;
+case '/read.html':
+    readAccountData();
+    break;
+default:
+    readChart();
 }
