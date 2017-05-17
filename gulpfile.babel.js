@@ -46,23 +46,23 @@ const dirs = {
 };
 
 const stylesPaths = {
-    src: `${dirs.src}/styles/*.scss`,
-    dist: `${dirs.dist}/css`,
+    src: `src/styles/*.scss`,
+    dist: `dist/css`,
 };
 
 const htmlPaths = {
-    src: `${dirs.src}/*.{json,html}`,
-    dist: `${dirs.dist}`,
+    src: `src/*.{json,html}`,
+    dist: `dist`,
 };
 
 const scriptsPaths = {
-    src: `${dirs.src}/scripts/*.js`,
-    dist: `${dirs.dist}/js`,
+    src: `src/scripts/*.js`,
+    dist: `dist/js`,
 };
 
 const imagesPaths = {
-    src: `${dirs.src}/images/*`,
-    dist: `${dirs.dist}/img`,
+    src: `src/images/*`,
+    dist: `dist/img`,
 };
 
 
