@@ -11,6 +11,7 @@ import sass from 'gulp-sass';
 import uglify from 'gulp-uglify';
 import imagemin from 'gulp-imagemin';
 import cleanCSS from 'gulp-clean-css';
+import htmlmin from 'gulp-htmlmin';
 
 // 轉成 gulp 讀取的 vinyl（黑膠）流
 // 將常規流轉換為包含 Stream 的 vinyl 對象
@@ -40,18 +41,13 @@ import notify from 'gulp-notify';
 
 //--------------------------------------------讀取檔案路徑
 
-const dirs = {
-    src: 'src',
-    dist: 'dist',
-};
-
 const stylesPaths = {
     src: `src/styles/*.scss`,
     dist: `dist/css`,
 };
 
 const htmlPaths = {
-    src: `src/*.{json,html}`,
+    src: `src/*.html`,
     dist: `dist`,
 };
 
@@ -82,7 +78,7 @@ gulp.task('cleanImages', () => {
 });
 
 gulp.task('cleanHtml', () => {
-    return del(`${htmlPaths.dist}/*.{html,json}`);
+    return del(`${htmlPaths.dist}/*.html`);
 });
 
 
@@ -150,11 +146,17 @@ gulp.task('html', ['cleanHtml'], () => {
           prefix: '@@',
           basepath: '@file'
         }))
+        .pipe(htmlmin({collapseWhitespace: true}))
         .pipe(gulp.dest('./dist'))
         .pipe(browserSync.stream());
 });
 
-
+// add json task, not normal
+gulp.task('json', () => {
+    return gulp.src('src/*.json')
+        .pipe(gulp.dest('./dist'))
+        .pipe(browserSync.stream());
+});
 
 //--------------------------------------------任務宣告完成
 
@@ -166,13 +168,16 @@ gulp.task('server', () => {
 });
 
 // 監聽是否有檔案更新
+// add json
 gulp.task('watch', () => {
     gulp.watch(stylesPaths.src, ['styles']);
     gulp.watch(scriptsPaths.src, ['scripts']);
     gulp.watch(imagesPaths.src, ['images']);
-    gulp.watch([htmlPaths.src, `${dirs.src}/templates/*.{json,html}`], ['html']);
+    gulp.watch([htmlPaths.src, `src/templates/*.html`], ['html']);
+    gulp.watch('src/*.json', ['json']);
 });
 
 // 兩種任務類型，第一種會啟動 server
-gulp.task('default', ['server', 'html', 'scripts', 'styles', 'images', 'watch']);
-gulp.task('build', ['html', 'scripts', 'styles', 'images']);
+// add json
+gulp.task('default', ['server', 'html', 'scripts', 'styles', 'images', 'watch', 'json']);
+gulp.task('build', ['html', 'scripts', 'styles', 'images', 'json']);
