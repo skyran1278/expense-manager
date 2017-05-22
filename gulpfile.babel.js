@@ -102,17 +102,17 @@ gulp.task('styles', ['cleanStyles'], () => {
 });
 
 // 編譯 JavaScript 轉譯、合併、壓縮任務，完成後送到 dist/js/bundle.js
+// add custom browserify options here
+var customOpts = {
+  entries: ['./src/scripts/main.js'],
+  debug: true
+};
+var opts = assign({}, watchify.args, customOpts);
+var b = watchify(browserify(opts));
+// add transformations here
+b.transform(babelify);
 gulp.task('scripts', ['cleanScripts'], () => {
-    return watchify( browserify( assign(
-            {},
-            watchify.args,
-            {
-                entries: ['./src/scripts/main.js'],
-                paths: [ './node_modules', './dist/bower_components/' ],
-                debug: true
-            })))
-        .transform( babelify )        // 轉譯
-        .bundle()
+    return b.bundle()
         .on('error', function(err) {
             gutil.log("\n\n" + gutil.colors.bgRed("\n" + 'Browserify compile error: ' + "\n\n" + err.message + "\n") + "\n\n");
             this.emit("end");

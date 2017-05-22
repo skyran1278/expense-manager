@@ -15,6 +15,95 @@ const config = {
 firebase.initializeApp(config);
 const database = firebase.database();
 
+const signup = () => {
+    // let signUpUser;
+    const firstUser = document.getElementById('first-user');
+    const firstPassword = document.getElementById('first-password');
+    const signupRef = document.getElementById('signup-btn');
+
+    signupRef.addEventListener('click', () => {
+        // console.log(firstUser.value);
+        firebase.auth().createUserWithEmailAndPassword(firstUser.value, firstPassword.value)
+            // .then(() => {
+            //     // 登入成功後，取得登入使用者資訊
+            //     signUpUser = firebase.auth().currentUser;
+            //     console.log(`登入使用者為${signUpUser}`);
+            //     database.ref(`users/${signUpUser.uid}`).set({
+            //         email: signUpUser.email,
+            //     })
+            //     .catch((error) => {
+            //         console.error('寫入使用者資訊錯誤', error);
+            //     });
+            // })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                console.log(errorCode);
+                console.log(errorMessage);
+                console.log(error);
+            });
+    });
+};
+
+let loginUser;
+
+const onAuthState = (callback) => {
+    firebase.auth().onAuthStateChanged((auth) => {
+        if (auth) {
+            loginUser = auth;
+            // console.log('User is logined', auth);
+            console.log(callback);
+            if (callback !== undefined) {
+                callback();
+            }
+        } else {
+            loginUser = null;
+            console.log('User is not logined yet.');
+        }
+    });
+};
+
+
+const login = () => {
+    const user = document.getElementById('user');
+    const password = document.getElementById('password');
+    const loginRef = document.getElementById('login-btn');
+
+    loginRef.addEventListener('click', () => {
+        // console.log(firstUser.value);
+        firebase.auth()
+            .signInWithEmailAndPassword(user.value, password.value)
+            // .then(() => {
+            //     // 登入成功後，取得登入使用者資訊
+            //     signUpUser = firebase.auth().currentUser;
+            //     console.log(`登入使用者為${signUpUser}`);
+            //     database.ref(`users/${signUpUser.uid}`).set({
+            //         email: signUpUser.email,
+            //     })
+            //     .catch((error) => {
+            //         console.error('寫入使用者資訊錯誤', error);
+            //     });
+            // })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                console.log(errorCode);
+                console.log(errorMessage);
+                console.log(error);
+            });
+        window.location = './index.html';
+    });
+
+    // var signoutSmtBtn = document.getElementById("signoutSmtBtn");
+    // signoutSmtBtn.addEventListener("click",function(){
+    //     firebase.auth().signOut().then(function() {
+    //         console.log("User sign out!");
+    //     }, function(error) {
+    //     console.log("User sign out error!");
+    //     })
+    // },false);
+};
+
 // var provider = new firebase.auth.GoogleAuthProvider();
 // firebase.auth().signInWithPopup(provider).then(function(result) {
 //   var token         = result.credential.accessToken;
@@ -28,7 +117,7 @@ const database = firebase.database();
 // });
 
 function writeAccountData(id, title, type, number, date) {
-    const accountRef = database.ref(`skyran/${id}`);
+    const accountRef = database.ref(`users/${loginUser.uid}/${id}`);
     accountRef.set({
         title,
         type,
@@ -46,7 +135,7 @@ function updateBtnListener() {
         updateBtns[i].addEventListener('click', (e) => {
             const id = updateBtns[i].getAttribute('data-id');
             e.preventDefault();
-            const accountRef = database.ref(`skyran/${id}`);
+            const accountRef = database.ref(`users/${loginUser.uid}/${id}`);
             accountRef.on('value', (snapshot) => {
                 // window.location = '/update.html?id=' + id +
                 // '&title=' + snapshot.val().title + '&type=' + snapshot.val().type +
@@ -58,7 +147,7 @@ function updateBtnListener() {
 }
 
 function deleteData(id) {
-    const accountRef = database.ref(`skyran/${id}`);
+    const accountRef = database.ref(`users/${loginUser.uid}/${id}`);
     accountRef.remove();
     accountRef.on('value', () => {
         // let str =
@@ -211,13 +300,21 @@ function loadChart(rawData) {
 }
 
 function readChart() {
-    const accountRef = database.ref('skyran/');
+    // console.log(loginUser);
+    const accountRef = database.ref(`users/${loginUser.uid}`);
     const infoRef = document.querySelector('#data-chart-info');
 
     accountRef.once('value').then((snapshot) => {
         const data = snapshot.val();
+        // console.log(data);
         if (data === null) {
-            infoRef.innerHTML = '<h4>Have no data</h4>';
+            infoRef.innerHTML = `
+            <h1>Hello!</h1>
+            <hr>
+            <a href="./create.html">
+                <button type="button" class="btn btn-primary">Add new Expense</button>
+            </a>
+            `;
         } else {
             loadChart(data);
         }
@@ -238,18 +335,16 @@ function readAccountData() {
             </tr>
         </thead>
     `;
-    const accountRef = database.ref('skyran/');
-    const infoRef = document.querySelector('#data-chart-info');
+    const accountRef = database.ref(`users/${loginUser.uid}`);
+    // const infoRef = document.querySelector('#data-chart-info');
     const dataTableRef = document.querySelector('#data-table');
 
     accountRef.once('value').then((snapshot) => {
         const data = snapshot.val();
         if (data === null) {
             dataTableRef.innerHTML = '<h4>Creat New Expense</h4>';
-            infoRef.innerHTML = '<h4>Have no data</h4>';
+            // infoRef.innerHTML = '<h4>Have no data</h4>';
         } else {
-            loadChart(data);
-
             const arrs = [];
             let i = 0;
             Object.keys(data).forEach((key) => {
@@ -303,7 +398,7 @@ function readFormData() {
 }
 
 function updateData(id, title, type, number, date) {
-    const accountRef = database.ref(`skyran/${id}`);
+    const accountRef = database.ref(`users/${loginUser.uid}/${id}`);
     accountRef.update({
         title,
         type,
@@ -311,7 +406,7 @@ function updateData(id, title, type, number, date) {
         date,
     });
     accountRef.on('value', () => {
-        window.location = './read.html';
+        window.location = './detail.html';
     });
 }
 
@@ -338,15 +433,151 @@ const path = window.location.pathname;
 // console.log(path);
 switch (path) {
 case '/create.html':
+    onAuthState();
     submitListener('create');
     break;
 case '/update.html':
-    readFormData();
+    onAuthState(readFormData);
     submitListener('update');
     break;
-case '/read.html':
-    readAccountData();
+case '/detail.html':
+    onAuthState(readAccountData);
+    break;
+case '/login.html':
+    login();
+    signup();
     break;
 default:
-    readChart();
+    onAuthState(readChart);
 }
+
+// Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyASwAnakbaqQB578LGHHbPCht7I_FqjNHs",
+    authDomain: "test-35b46.firebaseapp.com",
+    databaseURL: "https://test-35b46.firebaseio.com",
+    storageBucket: "test-35b46.appspot.com",
+    messagingSenderId: "558722894017"
+  };
+firebase.initializeApp(config);
+var database = firebase.database();
+
+//Email/Pwd註冊
+var loginUser;
+var account = document.getElementById("account");
+var pwd = document.getElementById("pwd");
+var registerSmtBtn = document.getElementById("registerSmtBtn");
+var age = document.getElementById("age");
+var name = document.getElementById("name");
+registerSmtBtn.addEventListener("click", function(){
+        console.log(account.value);
+    firebase.auth().createUserWithEmailAndPassword(account.value, pwd.value).then(function(){
+        //登入成功後，取得登入使用者資訊
+        loginUser = firebase.auth().currentUser;
+      console.log("登入使用者為",loginUser);
+      firebase.database().ref('users/' + loginUser.uid).set({
+        email: loginUser.email,
+        name: name.value,
+        age : age.value
+      }).catch(function(error){
+        console.error("寫入使用者資訊錯誤",error);
+      });
+    }).catch(function(error) {
+    // Handle Errors here.
+    var errorCode = error.code;
+    var errorMsg = error.message;
+    console.log(errorMsg);
+  });
+},false);
+
+//登入
+var accountL = document.getElementById("accountL");
+var pwdL = document.getElementById("pwdL");
+var loginSmtBtn = document.getElementById("loginSmtBtn");
+loginSmtBtn.addEventListener("click",function(){
+    firebase.auth().signInWithEmailAndPassword(accountL.value, pwdL.value).catch(function(error) {
+    // Handle Errors here.
+    var errorCode = error.code;
+    var errorMessage = error.message;
+    console.log(errorMessage);
+  })
+},false);
+
+var loginUser;
+firebase.auth().onAuthStateChanged(function(user) {
+  if (user) {
+    loginUser = user;
+    console.log("User is logined", user)
+  } else {
+    loginUser = null;
+    console.log("User is not logined yet.");
+  }
+});
+
+var signoutSmtBtn = document.getElementById("signoutSmtBtn");
+signoutSmtBtn.addEventListener("click",function(){
+    firebase.auth().signOut().then(function() {
+        console.log("User sign out!");
+    }, function(error) {
+    console.log("User sign out error!");
+    })
+},false);
+
+//取得目前使用者資訊
+var userInfoBtn = document.getElementById("userInfoBtn");
+var userInfo = document.getElementById("userInfo");
+userInfoBtn.addEventListener("click",function(){
+    //資料讀取一次後就不再理會
+  firebase.database().ref('/users/' + loginUser.uid).once('value').then(function(snapshot) {
+    var userInfoText = "使用者姓名："+snapshot.val().name+", 使用者年齡:"+snapshot.val().age;
+    console.log(userInfoText);
+    userInfo.innerHTML = userInfoText;
+  });
+},false);
+
+//關注使用者清單
+var userRef = firebase.database().ref('users');
+userRef.on('value', function(snapshot) {
+  console.log("目前所有使用者：",snapshot.val());
+});
+
+//刪除使用者資料
+var delUserInfoBtn = document.getElementById("delUserInfoBtn");
+delUserInfoBtn.addEventListener("click", function(){
+    firebase.database().ref('/users/' + loginUser.uid + "/name").remove().then(function(){
+    console.log("成功刪除")
+  });
+}, false);
+
+//新增Post
+var postSmtBtn = document.getElementById("postSmtBtn");
+var postTitle = document.getElementById("postTitle");
+var postContent = document.getElementById("postContent");
+var postLimitAge = document.getElementById("postLimitAge");
+postSmtBtn.addEventListener("click", function(){
+    var postRef = firebase.database().ref('/posts/' + loginUser.uid);
+    postRef.push().set({
+    uid: loginUser.uid,
+    title: postTitle.value,
+    content:postContent.value,
+    age:parseInt(postLimitAge.value)
+  }).then(function(){
+    console.log("新增Post成功");
+  }).catch(function(err){
+    console.error("新增Post錯誤：",err);
+  })
+})
+
+var postList = document.getElementById("postList");
+var postListBtn = document.getElementById("postListBtn");
+postListBtn.addEventListener("click", function(){
+    //
+  console.log(loginUser.age);
+    var postsRef = firebase.database().ref('posts/' + loginUser.uid).orderByChild("age").startAt(20 + "");
+  console.log("取得使用者所有Post")
+  postsRef.once('value').then(function(snapshot){
+    snapshot.forEach(function(childSnapshot) {
+      console.log(childSnapshot.val());
+    });
+  })
+}, false);
