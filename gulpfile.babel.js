@@ -101,7 +101,9 @@ gulp.task('styles', ['cleanStyles'], () => {
         .pipe(browserSync.stream());
 });
 
+
 // 編譯 JavaScript 轉譯、合併、壓縮任務，完成後送到 dist/js/bundle.js
+
 // add custom browserify options here
 var customOpts = {
   entries: ['./src/scripts/main.js'],
@@ -109,8 +111,11 @@ var customOpts = {
 };
 var opts = assign({}, watchify.args, customOpts);
 var b = watchify(browserify(opts));
+
 // add transformations here
 b.transform(babelify);
+
+// so you can run `gulp js` to build the file
 gulp.task('scripts', ['cleanScripts'], () => {
     return b.bundle()
         .on('error', function(err) {
@@ -129,6 +134,7 @@ gulp.task('scripts', ['cleanScripts'], () => {
         // .pipe(notify("Finish JS"))
         .pipe(browserSync.stream());
 });
+
 
 // 複製 images 任務，完成後送到 dist/images
 gulp.task('images', ['cleanImages'], () => {
