@@ -39,6 +39,7 @@ const signup = () => {
 
 let loginUser;
 
+// var user = firebase.auth().currentUser;
 const onAuthState = (callback) => {
     firebase.auth().onAuthStateChanged((auth) => {
         if (auth) {
