@@ -4,14 +4,15 @@ import * as firebase from 'firebase';
 // var jQuery = require('jquery');
 // var Bootstrap = require('bootstrap');
 
+// Initialize Firebase
 const config = {
-    apiKey: 'AIzaSyA5p1Hl_sxOPsvcsSJQ9Ja5POe6HtyudOk',
-    authDomain: 'test-d75f6.firebaseapp.com',
-    databaseURL: 'https://test-d75f6.firebaseio.com',
-    storageBucket: 'test-d75f6.appspot.com',
-    messagingSenderId: '389657327548',
+    apiKey: 'AIzaSyCms_SUzXe1Ng-a3jv-BsKKLfkXH1JUW6c',
+    authDomain: 'expense-manager-eacea.firebaseapp.com',
+    databaseURL: 'https://expense-manager-eacea.firebaseio.com',
+    projectId: 'expense-manager-eacea',
+    storageBucket: 'expense-manager-eacea.appspot.com',
+    messagingSenderId: '400660080161',
 };
-
 firebase.initializeApp(config);
 const database = firebase.database();
 
@@ -20,27 +21,18 @@ const signup = () => {
     const firstUser = document.getElementById('first-user');
     const firstPassword = document.getElementById('first-password');
     const signupRef = document.getElementById('signup-btn');
+    const signupErrorMessage = document.getElementById('signup-error-message');
 
     signupRef.addEventListener('click', () => {
         // console.log(firstUser.value);
         firebase.auth().createUserWithEmailAndPassword(firstUser.value, firstPassword.value)
-            // .then(() => {
-            //     // 登入成功後，取得登入使用者資訊
-            //     signUpUser = firebase.auth().currentUser;
-            //     console.log(`登入使用者為${signUpUser}`);
-            //     database.ref(`users/${signUpUser.uid}`).set({
-            //         email: signUpUser.email,
-            //     })
-            //     .catch((error) => {
-            //         console.error('寫入使用者資訊錯誤', error);
-            //     });
-            // })
+            .then(() => {
+                window.location = './index.html';
+            })
             .catch((error) => {
-                const errorCode = error.code;
+                // const errorCode = error.code;
                 const errorMessage = error.message;
-                console.log(errorCode);
-                console.log(errorMessage);
-                console.log(error);
+                signupErrorMessage.innerHTML = errorMessage;
             });
     });
 };
@@ -52,69 +44,96 @@ const onAuthState = (callback) => {
         if (auth) {
             loginUser = auth;
             // console.log('User is logined', auth);
-            console.log(callback);
+            // console.log(callback);
             if (callback !== undefined) {
+                const signOut = document.getElementById('sign-out');
+                signOut.addEventListener('click', () => {
+                    firebase.auth().signOut().then(() => {
+                        // console.log('User sign out!');
+                    }, (error) => {
+                        console.log(error);
+                    });
+                });
                 callback();
             }
         } else {
             loginUser = null;
-            console.log('User is not logined yet.');
+            window.location = './login.html';
+            // console.log('User is not logined yet.');
         }
     });
 };
-
 
 const login = () => {
     const user = document.getElementById('user');
     const password = document.getElementById('password');
     const loginRef = document.getElementById('login-btn');
+    const loginGoogle = document.getElementById('login-google');
+    const loginFacebook = document.getElementById('login-facebook');
+    const loginErrorMessage = document.getElementById('login-error-message');
 
     loginRef.addEventListener('click', () => {
         // console.log(firstUser.value);
         firebase.auth()
             .signInWithEmailAndPassword(user.value, password.value)
-            // .then(() => {
-            //     // 登入成功後，取得登入使用者資訊
-            //     signUpUser = firebase.auth().currentUser;
-            //     console.log(`登入使用者為${signUpUser}`);
-            //     database.ref(`users/${signUpUser.uid}`).set({
-            //         email: signUpUser.email,
-            //     })
-            //     .catch((error) => {
-            //         console.error('寫入使用者資訊錯誤', error);
-            //     });
-            // })
+            .then(() => {
+                window.location = './index.html';
+            })
             .catch((error) => {
-                const errorCode = error.code;
+                // const errorCode = error.code;
                 const errorMessage = error.message;
-                console.log(errorCode);
-                console.log(errorMessage);
-                console.log(error);
+                loginErrorMessage.innerHTML = errorMessage;
             });
-        window.location = './index.html';
     });
 
-    // var signoutSmtBtn = document.getElementById("signoutSmtBtn");
-    // signoutSmtBtn.addEventListener("click",function(){
-    //     firebase.auth().signOut().then(function() {
-    //         console.log("User sign out!");
-    //     }, function(error) {
-    //     console.log("User sign out error!");
-    //     })
-    // },false);
+    loginGoogle.addEventListener('click', () => {
+        // console.log(firstUser.value);
+        const provider = new firebase.auth.GoogleAuthProvider();
+        firebase.auth().signInWithPopup(provider).then(() => {
+            // This gives you a Google Access Token. You can use it to access the Google API.
+            // const token = result.credential.accessToken;
+            // The signed-in user info.
+            // const user = result.user;
+            // ...
+            window.location = './index.html';
+        }).catch((error) => {
+            // Handle Errors here.
+            // const errorCode = error.code;
+            // const errorMessage = error.message;
+            // The email of the user's account used.
+            // const email = error.email;
+            // The firebase.auth.AuthCredential type that was used.
+            // const credential = error.credential;
+            // ...
+            console.log(error);
+        });
+    });
+
+    loginFacebook.addEventListener('click', () => {
+        // console.log(firstUser.value);
+        const provider = new firebase.auth.FacebookAuthProvider();
+        firebase.auth().signInWithPopup(provider).then(() => {
+            // .then((result) => {
+            // This gives you a Google Access Token. You can use it to access the Google API.
+            // const token = result.credential.accessToken;
+            // The signed-in user info.
+            // const user = result.user;
+            // ...
+            window.location = './index.html';
+        }).catch((error) => {
+            // Handle Errors here.
+            // const errorCode = error.code;
+            // const errorMessage = error.message;
+            // The email of the user's account used.
+            // const email = error.email;
+            // The firebase.auth.AuthCredential type that was used.
+            // const credential = error.credential;
+            // ...
+            console.log(error);
+        });
+    });
 };
 
-// var provider = new firebase.auth.GoogleAuthProvider();
-// firebase.auth().signInWithPopup(provider).then(function(result) {
-//   var token         = result.credential.accessToken;
-//   var user          = result.user;      // 使用者資訊
-// }).catch(function(error) {
-//   // 處理錯誤
-//   var errorCode     = error.code;
-//   var errorMessage  = error.message;
-//   var email         = error.email;      // 使用者所使用的 Email
-//   var credential    = error.credential;
-// });
 
 function writeAccountData(id, title, type, number, date) {
     const accountRef = database.ref(`users/${loginUser.uid}/${id}`);
@@ -395,6 +414,7 @@ function readFormData() {
     addFormRef.type.value = params[2].split('=')[1];
     addFormRef.number.value = params[3].split('=')[1];
     addFormRef.date.value = params[4].split('=')[1];
+    $(`#${addFormRef.type.value.toLowerCase()}`).addClass('btn-primary');
 }
 
 function updateData(id, title, type, number, date) {
@@ -412,6 +432,42 @@ function updateData(id, title, type, number, date) {
 
 function submitListener(submitType) {
     const addFormRef = document.querySelector('#add-form');
+    const setClass = (value) => {
+        $('#meal').removeClass('btn-primary');
+        $('#life').removeClass('btn-primary');
+        $('#entertainment').removeClass('btn-primary');
+        $('#traffic').removeClass('btn-primary');
+        $('#others').removeClass('btn-primary');
+        $('#income').removeClass('btn-primary');
+        $(`#${value.toLowerCase()}`).addClass('btn-primary');
+    };
+
+    $('#meal').click(() => {
+        addFormRef.type.value = 'Meal';
+        setClass(addFormRef.type.value);
+    });
+
+    $('#life').click(() => {
+        addFormRef.type.value = 'Life';
+        setClass(addFormRef.type.value);
+    });
+    $('#entertainment').click(() => {
+        addFormRef.type.value = 'Entertainment';
+        setClass(addFormRef.type.value);
+    });
+    $('#traffic').click(() => {
+        addFormRef.type.value = 'Traffic';
+        setClass(addFormRef.type.value);
+    });
+    $('#others').click(() => {
+        addFormRef.type.value = 'Others';
+        setClass(addFormRef.type.value);
+    });
+    $('#income').click(() => {
+        addFormRef.type.value = 'Income';
+        setClass(addFormRef.type.value);
+    });
+
     addFormRef.addEventListener('submit', (e) => {
         e.preventDefault();
         let id = uuid.v4(); // random
@@ -450,134 +506,3 @@ case '/login.html':
 default:
     onAuthState(readChart);
 }
-
-// Initialize Firebase
-  var config = {
-    apiKey: "AIzaSyASwAnakbaqQB578LGHHbPCht7I_FqjNHs",
-    authDomain: "test-35b46.firebaseapp.com",
-    databaseURL: "https://test-35b46.firebaseio.com",
-    storageBucket: "test-35b46.appspot.com",
-    messagingSenderId: "558722894017"
-  };
-firebase.initializeApp(config);
-var database = firebase.database();
-
-//Email/Pwd註冊
-var loginUser;
-var account = document.getElementById("account");
-var pwd = document.getElementById("pwd");
-var registerSmtBtn = document.getElementById("registerSmtBtn");
-var age = document.getElementById("age");
-var name = document.getElementById("name");
-registerSmtBtn.addEventListener("click", function(){
-        console.log(account.value);
-    firebase.auth().createUserWithEmailAndPassword(account.value, pwd.value).then(function(){
-        //登入成功後，取得登入使用者資訊
-        loginUser = firebase.auth().currentUser;
-      console.log("登入使用者為",loginUser);
-      firebase.database().ref('users/' + loginUser.uid).set({
-        email: loginUser.email,
-        name: name.value,
-        age : age.value
-      }).catch(function(error){
-        console.error("寫入使用者資訊錯誤",error);
-      });
-    }).catch(function(error) {
-    // Handle Errors here.
-    var errorCode = error.code;
-    var errorMsg = error.message;
-    console.log(errorMsg);
-  });
-},false);
-
-//登入
-var accountL = document.getElementById("accountL");
-var pwdL = document.getElementById("pwdL");
-var loginSmtBtn = document.getElementById("loginSmtBtn");
-loginSmtBtn.addEventListener("click",function(){
-    firebase.auth().signInWithEmailAndPassword(accountL.value, pwdL.value).catch(function(error) {
-    // Handle Errors here.
-    var errorCode = error.code;
-    var errorMessage = error.message;
-    console.log(errorMessage);
-  })
-},false);
-
-var loginUser;
-firebase.auth().onAuthStateChanged(function(user) {
-  if (user) {
-    loginUser = user;
-    console.log("User is logined", user)
-  } else {
-    loginUser = null;
-    console.log("User is not logined yet.");
-  }
-});
-
-var signoutSmtBtn = document.getElementById("signoutSmtBtn");
-signoutSmtBtn.addEventListener("click",function(){
-    firebase.auth().signOut().then(function() {
-        console.log("User sign out!");
-    }, function(error) {
-    console.log("User sign out error!");
-    })
-},false);
-
-//取得目前使用者資訊
-var userInfoBtn = document.getElementById("userInfoBtn");
-var userInfo = document.getElementById("userInfo");
-userInfoBtn.addEventListener("click",function(){
-    //資料讀取一次後就不再理會
-  firebase.database().ref('/users/' + loginUser.uid).once('value').then(function(snapshot) {
-    var userInfoText = "使用者姓名："+snapshot.val().name+", 使用者年齡:"+snapshot.val().age;
-    console.log(userInfoText);
-    userInfo.innerHTML = userInfoText;
-  });
-},false);
-
-//關注使用者清單
-var userRef = firebase.database().ref('users');
-userRef.on('value', function(snapshot) {
-  console.log("目前所有使用者：",snapshot.val());
-});
-
-//刪除使用者資料
-var delUserInfoBtn = document.getElementById("delUserInfoBtn");
-delUserInfoBtn.addEventListener("click", function(){
-    firebase.database().ref('/users/' + loginUser.uid + "/name").remove().then(function(){
-    console.log("成功刪除")
-  });
-}, false);
-
-//新增Post
-var postSmtBtn = document.getElementById("postSmtBtn");
-var postTitle = document.getElementById("postTitle");
-var postContent = document.getElementById("postContent");
-var postLimitAge = document.getElementById("postLimitAge");
-postSmtBtn.addEventListener("click", function(){
-    var postRef = firebase.database().ref('/posts/' + loginUser.uid);
-    postRef.push().set({
-    uid: loginUser.uid,
-    title: postTitle.value,
-    content:postContent.value,
-    age:parseInt(postLimitAge.value)
-  }).then(function(){
-    console.log("新增Post成功");
-  }).catch(function(err){
-    console.error("新增Post錯誤：",err);
-  })
-})
-
-var postList = document.getElementById("postList");
-var postListBtn = document.getElementById("postListBtn");
-postListBtn.addEventListener("click", function(){
-    //
-  console.log(loginUser.age);
-    var postsRef = firebase.database().ref('posts/' + loginUser.uid).orderByChild("age").startAt(20 + "");
-  console.log("取得使用者所有Post")
-  postsRef.once('value').then(function(snapshot){
-    snapshot.forEach(function(childSnapshot) {
-      console.log(childSnapshot.val());
-    });
-  })
-}, false);
