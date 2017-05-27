@@ -88,6 +88,8 @@ const login = () => {
             // The signed-in user info.
             // const user = result.user;
             // ...
+            // user = result.user;
+            // console.log(result.user);
             window.location = './index.html';
         }).catch((error) => {
             // Handle Errors here.
@@ -548,8 +550,8 @@ case '/login.html':
     break;
 default:
     onAuthState(readChart);
-    // onAuthState();
     // readChart();
     signOutListener();
+    // onAuthState();
     // console.log(user);
 }
