@@ -323,7 +323,6 @@ function loadChart(rawData) {
         type: 'bar',
         options,
     });
-    $('#loading').hide();
 }
 
 function readChart() {
@@ -347,6 +346,7 @@ function readChart() {
         } else {
             loadChart(data);
         }
+        $('#loading').hide();
     });
 }
 
@@ -366,13 +366,13 @@ function readAccountData() {
     `;
     // user = firebase.auth().currentUser;
     const accountRef = database.ref(`users/${user.uid}`);
-    // const infoRef = document.querySelector('#data-chart-info');
+    const infoRef = document.querySelector('#data-chart-info');
     const dataTableRef = document.querySelector('#data-table');
 
     accountRef.once('value').then((snapshot) => {
         const data = snapshot.val();
         if (data === null) {
-            dataTableRef.innerHTML = `
+            infoRef.innerHTML = `
             <h1>Hello!</h1>
             <hr>
             <a href="./create.html">
@@ -417,7 +417,7 @@ function readAccountData() {
                 </tr>
                 `;
             });
-            document.querySelector('#data-table').innerHTML = str;
+            dataTableRef.innerHTML = str;
             // loadChart(data);
             updateBtnListener();
             deleteBtnListener();
