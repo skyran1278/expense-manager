@@ -11,7 +11,7 @@ var path = require('path');
 
 var file_content;
 
-var webPath = 'dist';
+var webPath = 'docs';
 
 var server = http.createServer(function(req, res) {
     // req 是 request 本地端請求的訊息

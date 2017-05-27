@@ -43,22 +43,22 @@ import notify from 'gulp-notify';
 
 const stylesPaths = {
     src: `src/styles/*.scss`,
-    dist: `dist/css`,
+    dist: `docs/css`,
 };
 
 const htmlPaths = {
     src: `src/*.html`,
-    dist: `dist`,
+    dist: `docs`,
 };
 
 const scriptsPaths = {
     src: `src/scripts/*.js`,
-    dist: `dist/js`,
+    dist: `docs/js`,
 };
 
 const imagesPaths = {
     src: `src/images/*`,
-    dist: `dist/img`,
+    dist: `docs/img`,
 };
 
 
@@ -153,14 +153,14 @@ gulp.task('html', ['cleanHtml'], () => {
           basepath: '@file'
         }))
         .pipe(htmlmin({collapseWhitespace: true}))
-        .pipe(gulp.dest('./dist'))
+        .pipe(gulp.dest('./docs'))
         .pipe(browserSync.stream());
 });
 
 // add json task, not normal
 gulp.task('json', () => {
     return gulp.src('src/*.json')
-        .pipe(gulp.dest('./dist'))
+        .pipe(gulp.dest('./docs'))
         .pipe(browserSync.stream());
 });
 
@@ -169,7 +169,7 @@ gulp.task('json', () => {
 // 啟動測試用 server
 gulp.task('server', () => {
     browserSync.init({
-        server: "./dist",
+        server: "./docs",
     });
 });
 
