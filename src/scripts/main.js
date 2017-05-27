@@ -16,6 +16,25 @@ const config = {
 firebase.initializeApp(config);
 const database = firebase.database();
 
+let user;
+// var user = firebase.auth().currentUser;
+const onAuthState = (callback) => {
+    firebase.auth().onAuthStateChanged((auth) => {
+        if (auth) {
+            user = auth;
+            // console.log('User is logined', auth);
+            // console.log(callback);
+            if (callback !== undefined) {
+                callback();
+            }
+        } else {
+            user = null;
+            window.location = './login.html';
+            // console.log('User is not logined yet.');
+        }
+    });
+};
+
 const signup = () => {
     // let signUpUser;
     const firstUser = document.getElementById('first-user');
@@ -37,36 +56,8 @@ const signup = () => {
     });
 };
 
-let loginUser;
-
-// var user = firebase.auth().currentUser;
-const onAuthState = (callback) => {
-    firebase.auth().onAuthStateChanged((auth) => {
-        if (auth) {
-            loginUser = auth;
-            // console.log('User is logined', auth);
-            // console.log(callback);
-            if (callback !== undefined) {
-                const signOut = document.getElementById('sign-out');
-                signOut.addEventListener('click', () => {
-                    firebase.auth().signOut().then(() => {
-                        // console.log('User sign out!');
-                    }, (error) => {
-                        console.log(error);
-                    });
-                });
-                callback();
-            }
-        } else {
-            loginUser = null;
-            window.location = './login.html';
-            // console.log('User is not logined yet.');
-        }
-    });
-};
-
 const login = () => {
-    const user = document.getElementById('user');
+    const loginUser = document.getElementById('user');
     const password = document.getElementById('password');
     const loginRef = document.getElementById('login-btn');
     const loginGoogle = document.getElementById('login-google');
@@ -76,7 +67,7 @@ const login = () => {
     loginRef.addEventListener('click', () => {
         // console.log(firstUser.value);
         firebase.auth()
-            .signInWithEmailAndPassword(user.value, password.value)
+            .signInWithEmailAndPassword(loginUser.value, password.value)
             .then(() => {
                 window.location = './index.html';
             })
@@ -135,9 +126,20 @@ const login = () => {
     });
 };
 
+function signOutListener() {
+    const signOut = document.getElementById('sign-out');
+    signOut.addEventListener('click', () => {
+        firebase.auth().signOut().then(() => {
+            // console.log('User sign out!');
+        }, (error) => {
+            console.log(error);
+        });
+    });
+}
 
 function writeAccountData(id, title, type, number, date) {
-    const accountRef = database.ref(`users/${loginUser.uid}/${id}`);
+    // user = firebase.auth().currentUser;
+    const accountRef = database.ref(`users/${user.uid}/${id}`);
     accountRef.set({
         title,
         type,
@@ -146,16 +148,18 @@ function writeAccountData(id, title, type, number, date) {
     });
     accountRef.on('value', () => {
         window.location = './index.html';
+        // console.log(user);
     });
 }
 
 function updateBtnListener() {
+    // user = firebase.auth().currentUser;
     const updateBtns = document.querySelectorAll('.update-btn');
     for (let i = 0; i < updateBtns.length; i += 1) {
         updateBtns[i].addEventListener('click', (e) => {
             const id = updateBtns[i].getAttribute('data-id');
             e.preventDefault();
-            const accountRef = database.ref(`users/${loginUser.uid}/${id}`);
+            const accountRef = database.ref(`users/${user.uid}/${id}`);
             accountRef.on('value', (snapshot) => {
                 // window.location = '/update.html?id=' + id +
                 // '&title=' + snapshot.val().title + '&type=' + snapshot.val().type +
@@ -167,7 +171,8 @@ function updateBtnListener() {
 }
 
 function deleteData(id) {
-    const accountRef = database.ref(`users/${loginUser.uid}/${id}`);
+    // user = firebase.auth().currentUser;
+    const accountRef = database.ref(`users/${user.uid}/${id}`);
     accountRef.remove();
     accountRef.on('value', () => {
         // let str =
@@ -179,7 +184,7 @@ function deleteData(id) {
         //     </div>
         // `;
         // document.querySelector('#messenge').innerHTML = str;
-        window.location = './index.html';
+        window.location = './detail.html';
     });
 }
 
@@ -320,8 +325,10 @@ function loadChart(rawData) {
 }
 
 function readChart() {
-    // console.log(loginUser);
-    const accountRef = database.ref(`users/${loginUser.uid}`);
+    // console.log(user);
+    // user = firebase.auth().currentUser;
+    // console.log(user);
+    const accountRef = database.ref(`users/${user.uid}`);
     const infoRef = document.querySelector('#data-chart-info');
 
     accountRef.once('value').then((snapshot) => {
@@ -355,7 +362,8 @@ function readAccountData() {
             </tr>
         </thead>
     `;
-    const accountRef = database.ref(`users/${loginUser.uid}`);
+    // user = firebase.auth().currentUser;
+    const accountRef = database.ref(`users/${user.uid}`);
     // const infoRef = document.querySelector('#data-chart-info');
     const dataTableRef = document.querySelector('#data-table');
 
@@ -419,7 +427,8 @@ function readFormData() {
 }
 
 function updateData(id, title, type, number, date) {
-    const accountRef = database.ref(`users/${loginUser.uid}/${id}`);
+    // user = firebase.auth().currentUser;
+    const accountRef = database.ref(`users/${user.uid}/${id}`);
     accountRef.update({
         title,
         type,
@@ -430,6 +439,12 @@ function updateData(id, title, type, number, date) {
         window.location = './detail.html';
     });
 }
+
+// Date.prototype.toDateInputValue = (() => {
+//     const local = new Date(this);
+//     local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
+//     return local.toJSON().slice(0, 10);
+// });
 
 function submitListener(submitType) {
     const addFormRef = document.querySelector('#add-form');
@@ -469,6 +484,9 @@ function submitListener(submitType) {
         setClass(addFormRef.type.value);
     });
 
+    // addFormRef.date.value = new Date().toDateInputValue();
+    document.getElementById('date').valueAsDate = new Date();
+
     addFormRef.addEventListener('submit', (e) => {
         e.preventDefault();
         let id = uuid.v4(); // random
@@ -490,20 +508,35 @@ const path = window.location.pathname;
 // console.log(path);
 switch (path) {
 case '/create.html':
-    onAuthState();
     submitListener('create');
+    signOutListener();
+    onAuthState();
+    // console.log(user);
     break;
 case '/update.html':
-    onAuthState(readFormData);
+    readFormData();
     submitListener('update');
+    signOutListener();
+    onAuthState();
+    // console.log(user);
+    // onAuthState(readFormData);
     break;
 case '/detail.html':
     onAuthState(readAccountData);
+    // readAccountData();
+    signOutListener();
+    // console.log(user);
     break;
 case '/login.html':
     login();
     signup();
+    signOutListener();
+    // console.log(user);
     break;
 default:
     onAuthState(readChart);
+    // onAuthState();
+    // readChart();
+    signOutListener();
+    // console.log(user);
 }

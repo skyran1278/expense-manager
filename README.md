@@ -12,13 +12,42 @@
 >
 > It can manage your life if you get used to its 'Manager'!
 
-## Chrome extension
+## Chrome Extension
 
 Adds a Expense Manager in the Chrome, which on click new blank opens page directly into Expense Manager.
 
 [Chrome Extension](https://github.com/skyran1278/20170324_ExpenseManager)
 [Source](https://github.com/skyran1278/20170324_ExpenseManager/tree/firebase/dist)
 
+## Major Update
+
+- Firebase + Chart.js + Uuid
+- 實作完成
+  - 使用者個人化資料
+  - 串接 Google 與 Facebook API
+  - 依時間日期排列資料
+  - 收入與支出 canvas
+  - 無資料時顯示 Add New Expense Button
+  - input select 改成 button 併點選時更改 button 狀態
+  - 日期自動預設為今天
+
+## Next Possible Step
+
+1. 資料庫換成 MongoDB
+2. 轉用 Express 路由去 render 網頁
+3. 使用 Vue.js 來實作
+4. 登入登出使用 Passport
+5. 等待途中增加 Loading 圖示
+6. canvas 可以變成 slide show
+7. 增加多個專案功能
+8. 刪除回復功能
+9. 個人化設定 Type Button
+10. 忘記密碼與信箱驗證功能
+
 ## Changelog
 
 Details changes for each release are documented in the [release notes](https://github.com/skyran1278/20170324_ExpenseManager/releases).
+
+## License
+
+All of the codebases are **MIT licensed** unless otherwise specified.
