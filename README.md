@@ -33,16 +33,16 @@ Adds a Expense Manager in the Chrome, which on click new blank opens page direct
 
 ## Next Possible Step
 
-1. 資料庫換成 MongoDB
-2. 轉用 Express 路由去 render 網頁
-3. 使用 Vue.js 來實作
-4. 登入登出使用 Passport
-5. 等待途中增加 Loading 圖示
-6. canvas 可以變成 slide show
-7. 增加多個專案功能
-8. 刪除回復功能
-9. 個人化設定 Type Button
-10. 忘記密碼與信箱驗證功能
+- 資料庫換成 MongoDB
+- 轉用 Express 路由去 render 網頁
+- 使用 Vue.js 來實作
+- 登入登出使用 Passport
+- 等待途中增加 Loading 圖示
+- canvas 可以變成 slide show
+- 增加多個專案功能
+- 刪除回復功能
+- 個人化設定 Type Button
+- 忘記密碼與信箱驗證功能
 
 ## Changelog
 
