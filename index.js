@@ -1,11 +1,12 @@
 const http = require('http');
 const url = require('url');
 const path = require('path');
-// const file_content;
-const webPath = 'docs';
 
 // 引用 File System 模組
 const fs = require('fs');
+
+// const file_content;
+const webPath = 'docs';
 
 const server = http.createServer((req, res) => {
     // // 解析使用者要求的路徑名稱
@@ -33,14 +34,16 @@ const server = http.createServer((req, res) => {
         }
         // 將檔案內容傳給瀏覽器
         // res.writeHead(200, { 'Content-Type': 'text/' });
-        res.write(content);
+        res.writeHead(200, {
+            'Content-Type': content,
+        });
         res.end();
     });
 
-    res.writeHead(200, {
-        'Content-Type': 'text/plain',
-    });
-    res.end('Hello Azure!');
+    // res.writeHead(200, {
+    //     'Content-Type': 'text/plain',
+    // });
+    // res.end('Hello Azure!');
 });
 
 // 設定 port 預設為 1337，若系統環境有設定則以系統環境設定為主
