@@ -17,8 +17,8 @@
 Adds a Expense Manager in the Chrome, which on click new blank opens page directly into Expense Manager.
 
 * [Chrome Extension](https://goo.gl/YPmDnM)
-* [Azure Web with Broken Figure](http://expense-manager.azurewebsites.net/) 
-* [Github Web with Always Reload](https://skyran1278.github.io/Expense-Manager/) 
+* [Azure Web with Broken Figure](http://expense-manager.azurewebsites.net/)
+* [Github Web with Always Reload](https://skyran1278.github.io/Expense-Manager/)
 * [Source](https://github.com/skyran1278/Expense-Manager/tree/master/docs)
 
 ## Major Update
@@ -27,12 +27,15 @@ Adds a Expense Manager in the Chrome, which on click new blank opens page direct
 - 實作完成
   - [x] 使用者個人化資料
   - [x] 串接 Google 與 Facebook API
-  - [x] 依時間日期排列資料
-  - [x] 收入與支出 canvas
   - [x] 無資料時顯示 Add New Expense Button
   - [x] input select 改成 button 併點選時更改 button 狀態
   - [x] 日期自動預設為今天
   - [x] 等待途中增加 Loading 圖示
+  - [x] 使用模板語言開發，減少重複使用
+  - [x] 增加收入功能
+  - [x] 新增 Detailed 頁面，加快 Index 載入速度
+  - [x] 紀錄以時間倒序排列，方便查閱
+  - [x] 收入與支出 canvas
 
 ## Next Possible Step
 
