@@ -418,7 +418,7 @@ function readAccountData() {
                 `;
             });
             document.querySelector('#data-table').innerHTML = str;
-            loadChart(data);
+            // loadChart(data);
             updateBtnListener();
             deleteBtnListener();
         }
@@ -535,9 +535,9 @@ case '/detail.html':
     onAuthState(readAccountData);
     // readAccountData();
     signOutListener();
-    $(document).ready(function(){
-      $('.bxslider').bxSlider();
-    });
+    // $(document).ready(function(){
+    //   $('.bxslider').bxSlider();
+    // });
     // console.log(user);
     break;
 case '/login.html':

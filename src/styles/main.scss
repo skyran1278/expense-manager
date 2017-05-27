@@ -256,3 +256,28 @@
   -o-animation: uil-flickr-anim2 1s linear infinite;
   animation: uil-flickr-anim2 1s linear infinite;
 }
+
+.parent {
+    display: table;
+    table-layout: fixed;
+}
+
+.child {
+    display:table-cell;
+    vertical-align:middle;
+    text-align:center;
+}
+
+.vcenter {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+}
+
+.vertical-center {
+  min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
+  min-height: 100vh; /* These two lines are counted as one :-)       */
+
+  display: flex;
+  align-items: center;
+}
