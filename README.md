@@ -32,6 +32,7 @@ Adds a Expense Manager in the Chrome, which on click new blank opens page direct
   - [x] 無資料時顯示 Add New Expense Button
   - [x] input select 改成 button 併點選時更改 button 狀態
   - [x] 日期自動預設為今天
+  - [x] 等待途中增加 Loading 圖示
 
 ## Next Possible Step
 
@@ -39,7 +40,6 @@ Adds a Expense Manager in the Chrome, which on click new blank opens page direct
 - 轉用 [Express](http://expressjs.com/zh-tw/) 路由去 render 網頁
 - 使用 [Vue.js](https://cn.vuejs.org/v2/guide/) 來實作
 - 登入登出使用 [Passport](http://passportjs.org/)
-- 等待途中增加 Loading 圖示
 - canvas 可以變成 slide show
 - 增加多個專案功能
 - 刪除回復功能

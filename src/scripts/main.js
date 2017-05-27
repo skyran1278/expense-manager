@@ -372,7 +372,13 @@ function readAccountData() {
     accountRef.once('value').then((snapshot) => {
         const data = snapshot.val();
         if (data === null) {
-            dataTableRef.innerHTML = '<h4>Creat New Expense</h4>';
+            dataTableRef.innerHTML = `
+            <h1>Hello!</h1>
+            <hr>
+            <a href="./create.html">
+                <button type="button" class="btn btn-primary">Add new Expense</button>
+            </a>
+            `;
             // infoRef.innerHTML = '<h4>Have no data</h4>';
         } else {
             const arrs = [];
@@ -412,10 +418,11 @@ function readAccountData() {
                 `;
             });
             document.querySelector('#data-table').innerHTML = str;
-            $('#loading').hide();
+            loadChart(data);
             updateBtnListener();
             deleteBtnListener();
         }
+        $('#loading').hide();
     });
 }
 
@@ -528,6 +535,9 @@ case '/detail.html':
     onAuthState(readAccountData);
     // readAccountData();
     signOutListener();
+    $(document).ready(function(){
+      $('.bxslider').bxSlider();
+    });
     // console.log(user);
     break;
 case '/login.html':
