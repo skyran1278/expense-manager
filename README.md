@@ -18,6 +18,7 @@ Adds a Expense Manager in the Chrome, which on click new blank opens page direct
 
 * [Chrome Extension](https://goo.gl/YPmDnM)
 * [Web](http://expense-manager.azurewebsites.net/)
+* [Web](https://skyran1278.github.io/Expense-Manager/)
 * [Source](https://github.com/skyran1278/20170324_ExpenseManager/tree/firebase/dist)
 
 ## Major Update

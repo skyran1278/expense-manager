@@ -323,6 +323,7 @@ function loadChart(rawData) {
         type: 'bar',
         options,
     });
+    $('#loading').hide();
 }
 
 function readChart() {
@@ -411,6 +412,7 @@ function readAccountData() {
                 `;
             });
             document.querySelector('#data-table').innerHTML = str;
+            $('#loading').hide();
             updateBtnListener();
             deleteBtnListener();
         }
