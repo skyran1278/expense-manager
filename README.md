@@ -19,7 +19,7 @@ Adds a Expense Manager in the Chrome, which on click new blank opens page direct
 * [Chrome Extension](https://goo.gl/YPmDnM)
 * [Web](http://expense-manager.azurewebsites.net/)
 * [Web](https://skyran1278.github.io/Expense-Manager/)
-* [Source](https://github.com/skyran1278/20170324_ExpenseManager/tree/firebase/dist)
+* [Source](https://github.com/skyran1278/20170324_ExpenseManager/tree/firebase/docs)
 
 ## Major Update
 
@@ -40,7 +40,7 @@ Adds a Expense Manager in the Chrome, which on click new blank opens page direct
 - 轉用 [Express](http://expressjs.com/zh-tw/) 路由去 render 網頁
 - 使用 [Vue.js](https://cn.vuejs.org/v2/guide/) 來實作
 - 登入登出使用 [Passport](http://passportjs.org/)
-- canvas 可以變成 slide show
+- canvas 可以變成 slide show **Not Beautiful, so delete it.**
 - 增加多個專案功能
 - 刪除回復功能
 - 個人化設定 Type Button
