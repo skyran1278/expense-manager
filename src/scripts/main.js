@@ -1,8 +1,8 @@
 import uuid from 'uuid';
 import Chart from 'chart.js';
 import * as firebase from 'firebase';
-// window.$ = window.jQuery = require('../bower_components/jquery/dist/jquery');
-// require('../bower_components/bootstrap/dist/js/bootstrap');
+// window.$ = window.jQuery = require('dist/bower_components/jquery/dist/jquery');
+// require('dist/bower_components/bootstrap/dist/js/bootstrap');
 // var Bootstrap = require('bootstrap');
 
 // Initialize Firebase
