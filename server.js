@@ -30,7 +30,7 @@ const server = http.createServer((req, res) => {
         if (err) {
             // console.log('Failed to read');
             // 若檔案讀取錯誤，回傳 404
-            res.writeHead(404, { 'Content-Type': 'text/html' });
+            res.writeHead(404, { 'image/png': 'text/html' });
             res.end();
             return;
         }
