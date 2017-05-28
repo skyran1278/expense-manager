@@ -8,9 +8,9 @@
 
 ## Expense Manager
 
-> Expense Manager is not just a expense record.
+> Expense Manager is an expense record.
 >
-> It can manage your life if you get used to its 'Manager'!
+> It can help you manage your life expense.
 
 ## Chrome Extension
 
