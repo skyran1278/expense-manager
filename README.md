@@ -17,13 +17,13 @@
 Adds a Expense Manager in the Chrome, which on click new blank opens page directly into Expense Manager.
 
 * [Chrome Extension](https://goo.gl/YPmDnM)
-* [Azure Web with Broken Figure](http://expense-manager.azurewebsites.net/)
-* [Github Web with Always Reload](https://skyran1278.github.io/Expense-Manager/)
+* [Azure Web](http://expense-manager.azurewebsites.net/)
+* [Github Web with Always Reload](https://skyran1278.github.io/Expense-Manager/) **can not use now**
 * [Source](https://github.com/skyran1278/Expense-Manager/tree/master/docs)
 
 ## Major Update
 
-- Firebase + Chart.js + Uuid
+- Firebase + Chart.js + Uuid + Express
 - 實作完成
   - [x] 使用者個人化資料
   - [x] 串接 Google 與 Facebook API
@@ -36,18 +36,18 @@ Adds a Expense Manager in the Chrome, which on click new blank opens page direct
   - [x] 新增 Detailed 頁面，加快 Index 載入速度
   - [x] 紀錄以時間倒序排列，方便查閱
   - [x] 收入與支出 canvas
+  - [x] 使用 [Express](http://expressjs.com/zh-tw/) 路由
 
 ## Next Possible Step
 
 - 資料庫換成 [MongoDB](https://www.mongodb.com/)
-- 轉用 [Express](http://expressjs.com/zh-tw/) 路由去 render 網頁
 - 使用 [Vue.js](https://cn.vuejs.org/v2/guide/) 來實作
 - 登入登出使用 [Passport](http://passportjs.org/)
 - canvas 可以變成 slide show **Not Beautiful, so delete it.**
 - 增加多個專案功能
 - 刪除回復功能
 - 個人化設定 Type Button
-- [忘記密碼與信箱驗證功能](https://firebase.google.com/docs/auth/web/manage-users#send_a_user_a_verification_email)
+- [忘記密碼與信箱驗證功能](https://firebase.google.com/docs/auth/web/manage-users#send_a_user_a_verification_email) **使簡單的事情變複雜了，故刪除之。**
 
 ## Changelog
 
