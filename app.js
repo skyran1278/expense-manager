@@ -24,9 +24,9 @@ app.use(express.static(path.join(__dirname, 'docs')));
 
 // app.use('/', index);
 // app.use('/users', users);
-app.get('/', function (req, res) {
-  res.send('Hello World!');
-});
+// app.get('/', function (req, res) {
+//   res.send('Hello World!');
+// });
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
