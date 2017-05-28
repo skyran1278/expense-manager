@@ -1,135 +1,90 @@
-var express = require('express');
-var app = express();
+#!/usr/bin/env node
 
-app.get('/', function (req, res) {
-  res.send('Hello World!');
-});
+/**
+ * Module dependencies.
+ */
 
-app.listen(3000, function () {
-  console.log('Example app listening on port 3000!');
-});
+var app = require('./app');
+var debug = require('debug')('try:server');
+var http = require('http');
 
-// /* global process */
-// /* global __dirname */
-// const http = require('http');
-// const url = require('url');
-// const path = require('path');
+/**
+ * Get port from environment and store in Express.
+ */
 
-// // 引用 File System 模組
-// const fs = require('fs');
+var port = normalizePort(process.env.PORT || '3000');
+app.set('port', port);
 
-// // const file_content;
-// const webPath = 'docs';
+/**
+ * Create HTTP server.
+ */
 
-// const server = http.createServer((req, res) => {
-//     // // 解析使用者要求的路徑名稱
-//     const urlPath = url.parse(req.url);
-//     let pathname = urlPath.pathname;
+var server = http.createServer(app);
 
-//     // // 判斷pathname是否為預設路徑
-//     if (pathname === '/' || pathname === '/index.htm') {
-//         pathname = 'index.html';
-//     }
+/**
+ * Listen on provided port, on all network interfaces.
+ */
 
-//     // // __dirname 是程式的路徑
-//     // // webPath 是公開的資料夾
-//     // // pathname 是使用者要求的路徑名稱
-//     const filePath = path.join(__dirname, webPath, pathname);
+server.listen(port);
+server.on('error', onError);
+server.on('listening', onListening);
 
-//     // // 讀取檔案
-//     fs.readFile(filePath, 'utf8', (err, content) => {
-//         if (err) {
-//             // console.log('Failed to read');
-//             // 若檔案讀取錯誤，回傳 404
-//             res.writeHead(404, { 'image/png': 'text/html' });
-//             res.end();
-//             return;
-//         }
-//         // 將檔案內容傳給瀏覽器
-//         // res.writeHead(200, { 'Content-Type': 'text/' });
-//         res.write(content);
-//         res.end();
-//     });
+/**
+ * Normalize a port into a number, string, or false.
+ */
 
-//     // res.writeHead(200, {
-//     //     'Content-Type': 'text/plain',
-//     // });
-//     // res.end('Hello Azure!');
-// });
+function normalizePort(val) {
+  var port = parseInt(val, 10);
 
-// // 設定 port 預設為 1337，若系統環境有設定則以系統環境設定為主
-// const port = process.env.PORT || 1337;
-// server.listen(port);
+  if (isNaN(port)) {
+    // named pipe
+    return val;
+  }
 
-// // console.log('Server running at http://localhost:%d', port);
+  if (port >= 0) {
+    // port number
+    return port;
+  }
 
-// // var server = http.createServer(function(req, res) {
+  return false;
+}
 
-// // });
+/**
+ * Event listener for HTTP server "error" event.
+ */
 
-// // var http = require('http');
-// // var port = process.env.port || 1337;
-// // http.createServer(function (req, res) {
-// //     res.writeHead(200, { 'Content-Type': 'text/plain' });
-// //     res.end('Hello World\n');
-// // }).listen(port);
+function onError(error) {
+  if (error.syscall !== 'listen') {
+    throw error;
+  }
 
-// // // 載入 http 的模組
-// // var http = require('http');
-// // // 引用 File System 模組
-// // var fs = require('fs');
+  var bind = typeof port === 'string'
+    ? 'Pipe ' + port
+    : 'Port ' + port;
 
-// // // 設定 port 預設為 1337，若系統環境有設定則以系統環境設定為主
-// // var port = process.env.PORT || 1337;
+  // handle specific listen errors with friendly messages
+  switch (error.code) {
+    case 'EACCES':
+      console.error(bind + ' requires elevated privileges');
+      process.exit(1);
+      break;
+    case 'EADDRINUSE':
+      console.error(bind + ' is already in use');
+      process.exit(1);
+      break;
+    default:
+      throw error;
+  }
+}
 
-// // var url = require('url');
-// // var path = require('path');
+/**
+ * Event listener for HTTP server "listening" event.
+ */
 
-// // var file_content;
-
-// // var webPath = 'docs';
-
-// // var server = http.createServer(function(req, res) {
-// //     // req 是 request 本地端請求的訊息
-// //     // res 是 response 主機回傳到本地端的訊息
-
-// //     // 解析使用者要求的路徑名稱
-// //     var url_path = url.parse(req.url);
-// //     console.log('path:' + url_path);
-// //     var pathname = url_path.pathname;
-// //     console.log('pathname:' + pathname);
-
-// //     // 判斷pathname是否為預設路徑
-// //     if (pathname === "/" || pathname === "/index.htm") {
-// //         pathname = 'index.html';
-// //     }
-
-// //     // __dirname 是程式的路徑
-// //     // webPath 是公開的資料夾
-// //     // pathname 是使用者要求的路徑名稱
-// //     var filePath = path.join(__dirname, webPath, pathname);
-// //     console.log('filePath:' + filePath);
-
-
-// //     // 讀取檔案
-// //     fs.readFile(filePath, 'utf8', function(err, content) {
-// //         if (err) {
-// //             console.log('Failed to read');
-// //             // 若檔案讀取錯誤，回傳 404
-// //             res.writeHead(404, { 'Content-Type': 'text/html' });
-// //             res.end();
-// //             return;
-// //         }
-// //         // 將檔案內容傳給瀏覽器
-// //         //res.writeHead(200, { 'Content-Type': 'text/' });
-// //         res.write(content);
-// //         // res.writeHead(200, {
-// //         //     'Content-Type': content,
-// //         // });
-// //         res.end();
-// //     });
-// // });
-
-// // // 啟動並等待連接
-// // server.listen(port);
-// // console.log('Server running at http://127.0.0.1:/' + port);
+function onListening() {
+  var addr = server.address();
+  var bind = typeof addr === 'string'
+    ? 'pipe ' + addr
+    : 'port ' + addr.port;
+  debug('Listening on ' + bind);
+}
