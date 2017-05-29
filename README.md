@@ -23,7 +23,7 @@ Adds a Expense Manager in the Chrome, which on click new blank opens page direct
 
 ## Major Update
 
-- Firebase + Chart.js + Uuid + Express
+- 資料庫：Firebase + Uuid + Chart.js + Bootstrap + Express
 - 實作完成
   - [x] 使用者個人化資料
   - [x] 串接 Google 與 Facebook API
@@ -43,11 +43,11 @@ Adds a Expense Manager in the Chrome, which on click new blank opens page direct
 - 資料庫換成 [MongoDB](https://www.mongodb.com/)
 - 使用 [Vue.js](https://cn.vuejs.org/v2/guide/) 來實作
 - 登入登出使用 [Passport](http://passportjs.org/)
-- canvas 可以變成 slide show **Not Beautiful, so delete it.**
+- canvas 可以變成 slide show **-Not Beautiful, so delete it.**
 - 增加多個專案功能
 - 刪除回復功能
 - 個人化設定 Type Button
-- [忘記密碼與信箱驗證功能](https://firebase.google.com/docs/auth/web/manage-users#send_a_user_a_verification_email) **使簡單的事情變複雜了，故刪除之。**
+- [忘記密碼與信箱驗證功能](https://firebase.google.com/docs/auth/web/manage-users#send_a_user_a_verification_email) **-使簡單的事情變複雜了，故刪除之。**
 
 ## Changelog
 
