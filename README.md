@@ -53,6 +53,12 @@ Adds a Expense Manager in the Chrome, which on click new blank opens page direct
 
 Details changes for each release are documented in the [release notes](https://github.com/skyran1278/20170324_ExpenseManager/releases).
 
+## Contributors
+
+JavaScript 的啟蒙老師： [KD Chang](https://github.com/kdchang) | [Anthony P. Alicea](https://github.com/AnthonyPAlicea)
+資料庫程式設計老師： [Kun Chen](https://github.com/kchen-tw)
+[Skyran](https://github.com/skyran1278)
+
 ## License
 
 All of the codebases are **MIT licensed** unless otherwise specified.
