@@ -17,8 +17,9 @@
 Adds a Expense Manager in the Chrome, which on click new blank opens page directly into Expense Manager.
 
 * [Chrome Extension](https://goo.gl/YPmDnM)
-* [Azure Web](http://expense-manager.azurewebsites.net/)
-* [Github Web with Always Reload](https://skyran1278.github.io/Expense-Manager/) **can not use now**
+* [Azure Web](http://expense-manager.azurewebsites.net)
+* [Heroku Web](https://expense-manger.herokuapp.com)
+* [Github Web with Always Reload](https://skyran1278.github.io/Expense-Manager) **can not use now**
 * [Source](https://github.com/skyran1278/Expense-Manager/tree/master/docs)
 
 ## Major Update
