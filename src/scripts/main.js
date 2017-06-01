@@ -150,7 +150,7 @@ function writeAccountData(id, title, type, number, date) {
         date,
     });
     accountRef.on('value', () => {
-        window.location = './index.html';
+        window.location = './create.html';
         // console.log(user);
     });
 }
