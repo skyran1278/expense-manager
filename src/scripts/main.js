@@ -142,7 +142,7 @@ function signOutListener() {
 
 function writeAccountData(id, title, type, number, date) {
     // user = firebase.auth().currentUser;
-    const accountRef = database.ref(`users/${user.uid}/${id}`);
+    const accountRef = database.ref(`users/${user.uid}/data/${id}`);
     accountRef.set({
         title,
         type,
@@ -162,7 +162,7 @@ function updateBtnListener() {
         updateBtns[i].addEventListener('click', (e) => {
             const id = updateBtns[i].getAttribute('data-id');
             e.preventDefault();
-            const accountRef = database.ref(`users/${user.uid}/${id}`);
+            const accountRef = database.ref(`users/${user.uid}/data/${id}`);
             accountRef.on('value', (snapshot) => {
                 // window.location = '/update.html?id=' + id +
                 // '&title=' + snapshot.val().title + '&type=' + snapshot.val().type +
@@ -175,7 +175,7 @@ function updateBtnListener() {
 
 function deleteData(id) {
     // user = firebase.auth().currentUser;
-    const accountRef = database.ref(`users/${user.uid}/${id}`);
+    const accountRef = database.ref(`users/${user.uid}/data/${id}`);
     accountRef.remove();
     accountRef.on('value', () => {
         // let str =
@@ -271,6 +271,9 @@ function loadChart(rawData) {
     new Chart(ctxDataIncomeChart, {
         data: incomeData,
         type: 'doughnut',
+        options: {
+            maintainAspectRatio: false,
+        },
     });
 
     const data = {
@@ -318,6 +321,7 @@ function loadChart(rawData) {
                 },
             }],
         },
+        maintainAspectRatio: false,
     };
 
     new Chart(ctxDataChart, {
@@ -331,7 +335,7 @@ function readChart() {
     // console.log(user);
     // user = firebase.auth().currentUser;
     // console.log(user);
-    const accountRef = database.ref(`users/${user.uid}`);
+    const accountRef = database.ref(`users/${user.uid}/data`);
     const infoRef = document.querySelector('#data-chart-info');
 
     accountRef.once('value').then((snapshot) => {
@@ -367,7 +371,7 @@ function readAccountData() {
         </thead>
     `;
     // user = firebase.auth().currentUser;
-    const accountRef = database.ref(`users/${user.uid}`);
+    const accountRef = database.ref(`users/${user.uid}/data`);
     const infoRef = document.querySelector('#data-chart-info');
     const dataTableRef = document.querySelector('#data-table');
 
@@ -440,7 +444,7 @@ function readFormData() {
 
 function updateData(id, title, type, number, date) {
     // user = firebase.auth().currentUser;
-    const accountRef = database.ref(`users/${user.uid}/${id}`);
+    const accountRef = database.ref(`users/${user.uid}/data/${id}`);
     accountRef.update({
         title,
         type,

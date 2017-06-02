@@ -38,6 +38,9 @@ Adds a Expense Manager in the Chrome, which on click new blank opens page direct
   - [x] 紀錄以時間倒序排列，方便查閱
   - [x] 收入與支出 canvas
   - [x] 使用 [Express](http://expressjs.com/zh-tw/) 路由
+  - [x] 行動優先，Responsive Web Design
+    - [x] Button
+    - [x] Canvas
 
 ## Next Possible Step
 
@@ -47,7 +50,7 @@ Adds a Expense Manager in the Chrome, which on click new blank opens page direct
 - canvas 可以變成 slide show **-Not Beautiful, so delete it.**
 - 增加多個專案功能
 - 刪除回復功能
-- 個人化設定 Type Button
+- 個人化設定 Type Button **實作中**
 - [忘記密碼與信箱驗證功能](https://firebase.google.com/docs/auth/web/manage-users#send_a_user_a_verification_email) **-使簡單的事情變複雜了，故刪除之。**
 
 ## Changelog
