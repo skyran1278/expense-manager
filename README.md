@@ -39,8 +39,8 @@ Adds a Expense Manager in the Chrome, which on click new blank opens page direct
   - [x] 收入與支出 canvas
   - [x] 使用 [Express](http://expressjs.com/zh-tw/) 路由
   - [x] 行動優先，Responsive Web Design
-    - [x] Button
-    - [x] Canvas
+    - Button
+    - Canvas
 
 ## Next Possible Step
 
