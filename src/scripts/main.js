@@ -500,8 +500,9 @@ function submitListener(submitType) {
         setClass(addFormRef.type.value);
     });
 
-    // addFormRef.date.value = new Date().toDateInputValue();
-    document.getElementById('date').valueAsDate = new Date();
+    if (submitType === 'create') {
+        document.getElementById('date').valueAsDate = new Date();
+    }
 
     addFormRef.addEventListener('submit', (e) => {
         e.preventDefault();
