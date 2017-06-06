@@ -47,6 +47,15 @@ const signup = () => {
         // console.log(firstUser.value);
         firebase.auth().createUserWithEmailAndPassword(firstUser.value, firstPassword.value)
             .then(() => {
+                user = firebase.auth().currentUser;
+                // console.log('登入使用者為', user);
+                database.ref(`users/${user.uid}/setting`).set({
+                    item1: 'Meal',
+                    item2: 'Life',
+                    item3: 'Entertainment',
+                    item4: 'Traffic',
+                    item5: 'Others',
+                });
                 window.location = './index.html';
             })
             .catch((error) => {
@@ -90,6 +99,15 @@ const login = () => {
             // ...
             // user = result.user;
             // console.log(result.user);
+            user = firebase.auth().currentUser;
+                // console.log('登入使用者為', user);
+            database.ref(`users/${user.uid}/setting`).set({
+                item1: 'Meal',
+                item2: 'Life',
+                item3: 'Entertainment',
+                item4: 'Traffic',
+                item5: 'Others',
+            });
             window.location = './index.html';
         }).catch((error) => {
             // Handle Errors here.
@@ -114,6 +132,15 @@ const login = () => {
             // The signed-in user info.
             // const user = result.user;
             // ...
+            user = firebase.auth().currentUser;
+                // console.log('登入使用者為', user);
+            database.ref(`users/${user.uid}/setting`).set({
+                item1: 'Meal',
+                item2: 'Life',
+                item3: 'Entertainment',
+                item4: 'Traffic',
+                item5: 'Others',
+            });
             window.location = './index.html';
         }).catch((error) => {
             // Handle Errors here.
@@ -500,8 +527,11 @@ function submitListener(submitType) {
         setClass(addFormRef.type.value);
     });
 
+    if (submitType === 'create') {
+        document.getElementById('date').valueAsDate = new Date();
+    }
     // addFormRef.date.value = new Date().toDateInputValue();
-    document.getElementById('date').valueAsDate = new Date();
+
 
     addFormRef.addEventListener('submit', (e) => {
         e.preventDefault();
@@ -517,6 +547,41 @@ function submitListener(submitType) {
             id = params[0].split('=')[1];
             updateData(id, title, type, number, date);
         }
+    });
+}
+
+function setting() {
+    const settingFormRef = document.querySelector('#setting-form');
+    const settingRef = database.ref(`users/${user.uid}/setting`);
+    settingRef.on('value', (snapshot) => {
+        settingFormRef.item1.value = snapshot.val().item1;
+        settingFormRef.item2.value = snapshot.val().item2;
+        settingFormRef.item3.value = snapshot.val().item3;
+        settingFormRef.item4.value = snapshot.val().item4;
+        settingFormRef.item5.value = snapshot.val().item5;
+        // window.location = '/update.html?id=' + id +
+        // '&title=' + snapshot.val().title + '&type=' + snapshot.val().type +
+        // '&number=' + snapshot.val().number + '&date=' + snapshot.val().date;
+        // window.location = `/update.html?id=${id}&title=${snapshot.val().title}&type=${snapshot.val().type}&number=${snapshot.val().number}&date=${snapshot.val().date}`;
+    });
+
+    settingFormRef.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const item1 = settingFormRef.item1.value;
+        const item2 = settingFormRef.item2.value;
+        const item3 = settingFormRef.item3.value;
+        const item4 = settingFormRef.item4.value;
+        const item5 = settingFormRef.item5.value;
+        settingRef.update({
+            item1,
+            item2,
+            item3,
+            item4,
+            item5,
+        });
+        accountRef.on('value', () => {
+            window.location = './index.html';
+        });
     });
 }
 
@@ -551,6 +616,10 @@ case '/login.html':
     signup();
     signOutListener();
     // console.log(user);
+    break;
+case '/sort.html':
+    onAuthState(setting);
+    signOutListener();
     break;
 default:
     onAuthState(readChart);
