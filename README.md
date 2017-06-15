@@ -26,17 +26,16 @@ Adds a Expense Manager in the Chrome, which on click new blank opens page direct
 
 - 資料庫：Firebase + Uuid + Chart.js + Bootstrap + Express
 - 實作完成
+  - [x] 新增 Detailed 頁面，加快 Index 載入速度
+  - [x] 無資料時顯示 Add New Expense Button
+  - [x] 紀錄以時間倒序排列，方便查閱
+  - [x] 增加收入功能與收入與支出 Canvas
+  - [x] 使用模板語言開發，減少重複使用
+  - [x] input select 改成 button 併點選時更改 button 狀態
   - [x] 使用者個人化資料
   - [x] 串接 Google 與 Facebook API
-  - [x] 無資料時顯示 Add New Expense Button
-  - [x] input select 改成 button 併點選時更改 button 狀態
-  - [x] 日期自動預設為今天
   - [x] 等待途中增加 Loading 圖示
-  - [x] 使用模板語言開發，減少重複使用
-  - [x] 增加收入功能
-  - [x] 新增 Detailed 頁面，加快 Index 載入速度
-  - [x] 紀錄以時間倒序排列，方便查閱
-  - [x] 收入與支出 canvas
+  - [x] 日期自動預設為今天
   - [x] 使用 [Express](http://expressjs.com/zh-tw/) 路由
   - [x] 行動優先，Responsive Web Design
     - Button
@@ -53,6 +52,7 @@ Adds a Expense Manager in the Chrome, which on click new blank opens page direct
 - 刪除回復功能
 - 個人化設定 Type Button **實作中**
 - [忘記密碼與信箱驗證功能](https://firebase.google.com/docs/auth/web/manage-users#send_a_user_a_verification_email) **-使簡單的事情變複雜了，故刪除之。**
+- 評估是否要加入 Google Analytics
 
 ## Changelog
 
