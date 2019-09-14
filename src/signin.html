@@ -1,0 +1,70 @@
+@@include('./templates/header.html')
+
+<div class="container-fluid small-width">
+    <!-- <div class="col-md-12"> -->
+    <div class="text-center">
+        <h3>Sign In</h3>
+        <!-- <h4>靈感隨時會出現。Evernote 讓您可以跨平台隨時捕捉靈感、沈澱醞釀、分享共用。</h4> -->
+    </div>
+    <hr>
+
+    <div class="text-center">
+        <button type="submit" class="btn btn-danger" id="signin-google"> Continue with Google </button>
+
+    </div>
+    <br>
+    <div class="text-center">
+        <button type="submit" class="btn btn-primary" id="signin-facebook">Continue with Facebook</button>
+    </div>
+    <br>
+
+    <div class="text-center">
+        <form class="form-inline">
+            <div class="form-group">
+                <input type="email" class="form-control" name="user" id="user" placeholder="Email">
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control" name="password" id="password" placeholder="Password">
+            </div>
+        </form>
+    </div>
+    <div class="text-center text-danger">
+        <h6 id="signin-error-message"></h6>
+    </div>
+    <br>
+
+    <div class="text-center">
+        <button type="submit" class="btn btn-success" id="signin-btn">Sign In</button>
+    </div>
+
+    <hr>
+
+    <div class="text-center">
+        <h3>Sign Up</h3>
+    </div>
+    <br>
+
+    <div class="text-center">
+        <form class="form-inline">
+            <div class="form-group">
+
+                <input type="email" class="form-control" name="user" id="first-user" placeholder="Email">
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control" name="password" id="first-password" placeholder="Password">
+            </div>
+        </form>
+    </div>
+    <div class="text-center text-danger">
+        <h6 id="signup-error-message"></h6>
+    </div>
+    <br>
+
+    <div class="text-center">
+        <button type="submit" class="btn btn-success" id="signup-btn">Sign Up</button>
+    </div>
+
+    <!-- </div> -->
+</div>
+
+@@include('./templates/footer.html')
