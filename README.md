@@ -17,7 +17,7 @@
 Adds a Expense Manager in the Chrome, which on click new blank opens page directly into Expense Manager.
 
 * [Chrome Extension](https://goo.gl/YPmDnM)
-* [Firebase Web](https://expense-manager-eacea.web.app/login.html)
+* [Firebase Web](https://expense-manager-eacea.web.app)
 
 Don't Use it.
 * [Default Web](https://skyran.me)

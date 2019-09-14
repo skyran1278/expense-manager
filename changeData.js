@@ -1,5 +1,5 @@
 const fs = require('fs');
-const data = require('./expense-manager-eacea-export (2)');
+const data = require('./expense-manager-eacea-export');
 
 Object.keys(data.users).forEach((user) => {
   Object.keys(data.users[user].data).forEach((key) => {
@@ -48,6 +48,6 @@ Object.keys(data.users).forEach((user) => {
 });
 
 const dictstring = JSON.stringify(data);
-fs.writeFile('/Users/ran/Documents/GitHub/Expense-Manager/expense-manager-eacea.json', dictstring, (err) => {
+fs.writeFile('./expense-manager-eacea.json', dictstring, (err) => {
   if (err) { console.log(err); } else { console.log('Write operation complete.'); }
 });
