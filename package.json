@@ -11,6 +11,10 @@
   "engines": {
     "node": "10.x"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/skyran1278/expense-manager.git"
+  },
   "author": "u-ran",
   "license": "MIT",
   "devDependencies": {
