@@ -36,29 +36,6 @@ const onAuthState = (callback) => {
   });
 };
 
-const signup = () => {
-  // let signUpUser;
-  const firstUser = document.getElementById('first-user');
-  const firstPassword = document.getElementById('first-password');
-  const signupRef = document.getElementById('signup-btn');
-  const signupErrorMessage = document.getElementById('signup-error-message');
-
-  signupRef.addEventListener('click', () => {
-    // console.log(firstUser.value);
-    firebase
-      .auth()
-      .createUserWithEmailAndPassword(firstUser.value, firstPassword.value)
-      .then(() => {
-        window.location = './index.html';
-      })
-      .catch((error) => {
-        // const errorCode = error.code;
-        const errorMessage = error.message;
-        signupErrorMessage.innerHTML = errorMessage;
-      });
-  });
-};
-
 const signin = () => {
   const signinUser = document.getElementById('user');
   const password = document.getElementById('password');
@@ -571,7 +548,6 @@ switch (path) {
     break;
   case '/signin.html':
     signin();
-    signup();
     signOutListener();
     // console.log(user);
     break;
