@@ -3,7 +3,9 @@ const data = require('./expense-manager-eacea-export');
 
 Object.keys(data.users).forEach((user) => {
   Object.keys(data.users[user].data).forEach((key) => {
-    data.users[user].data[key].number = parseFloat(data.users[user].data[key].number);
+    data.users[user].data[key].number = parseFloat(
+      data.users[user].data[key].number
+    );
   });
 });
 
@@ -40,7 +42,14 @@ Object.keys(data.users).forEach((user) => {
         break;
     }
   });
-  data.users[user].count = { Meal, Life, Traffic, Entertainment, Others, Income };
+  data.users[user].count = {
+    Meal,
+    Life,
+    Traffic,
+    Entertainment,
+    Others,
+    Income,
+  };
 });
 
 Object.keys(data.users).forEach((user) => {
@@ -49,5 +58,9 @@ Object.keys(data.users).forEach((user) => {
 
 const dictstring = JSON.stringify(data);
 fs.writeFile('./expense-manager-eacea.json', dictstring, (err) => {
-  if (err) { console.log(err); } else { console.log('Write operation complete.'); }
+  if (err) {
+    console.log(err);
+  } else {
+    console.log('Write operation complete.');
+  }
 });
