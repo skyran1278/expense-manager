@@ -1,103 +1,96 @@
 .navbar-width {
-	margin-left: 15px;
-	margin-right: 15px;
-	// max-width: 980px;
+  margin-left: 15px;
+  margin-right: 15px;
+  // max-width: 980px;
 }
 
 .vertical-center {
-    height: 70%;
-    /* Fallback for browsers do NOT support vh unit */
-    height: 70vh;
-    /* These two lines are counted as one :-)       */
-    display: flex;
-    align-items: center;
+  height: 70%;
+  /* Fallback for browsers do NOT support vh unit */
+  height: 70vh;
+  /* These two lines are counted as one :-)       */
+  display: flex;
+  align-items: center;
 }
 
 .small-width {
-	// margin-left: 0px;
-	// margin-right: 0px;
-	// margin-left: 35%;
-	// margin-right: 35%;
+  // margin-left: 0px;
+  // margin-right: 0px;
+  // margin-left: 35%;
+  // margin-right: 35%;
 }
 
 body {
-    padding-top: 70px;
-    // margin-left: 70px;
-    // margin-right: 70px;
+  padding-top: 70px;
+  // margin-left: 70px;
+  // margin-right: 70px;
 }
 
 .chart-container-income {
-	height: 250px;
+  height: 250px;
 }
 
 .chart-container-data {
-	height: 310px;
+  height: 310px;
 }
 
-
 .btn {
-	margin-bottom: 5px;
+  margin-bottom: 5px;
 }
 
 @media (min-width: 768px) {
+  .btn {
+    margin-bottom: 0px;
+  }
 
-	.btn {
-		margin-bottom: 0px;
-	}
+  .chart-container-income {
+    height: 270px;
+  }
 
-	.chart-container-income {
-		height: 270px;
-	}
+  .chart-container-data {
+    height: 350px;
+  }
 
-	.chart-container-data {
-		height: 350px;
-	}
-
-	.small-width {
-		margin-left: 100px;
-		margin-right: 100px;
-	}
-
+  .small-width {
+    margin-left: 100px;
+    margin-right: 100px;
+  }
 }
 
 @media (min-width: 992px) {
+  .btn {
+    margin-bottom: 0px;
+  }
 
-	.btn {
-		margin-bottom: 0px;
-	}
+  .chart-container-income {
+    height: 350px;
+  }
 
-	.chart-container-income {
-		height: 350px;
-	}
+  .chart-container-data {
+    height: 450px;
+  }
 
-	.chart-container-data {
-		height: 450px;
-	}
-
-	.small-width {
-		margin-left: 200px;
-		margin-right: 200px;
-	}
-
+  .small-width {
+    margin-left: 200px;
+    margin-right: 200px;
+  }
 }
 
 @media (min-width: 1200px) {
+  .btn {
+    margin-bottom: 0px;
+  }
 
-	.btn {
-		margin-bottom: 0px;
-	}
+  .chart-container-income {
+    height: 270px;
+  }
 
-	.chart-container-income {
-		height: 270px;
-	}
+  .chart-container-data {
+    height: 350px;
+  }
 
-	.chart-container-data {
-		height: 350px;
-	}
-
-	.small-width {
-		margin-left: 300px;
-		margin-right: 300px;
-	}
-
+  .small-width {
+    margin-left: 300px;
+    margin-right: 300px;
+  }
 }

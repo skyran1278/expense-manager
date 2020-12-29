@@ -1,21 +1,21 @@
 {
-    "root": true,
-    "env": {
-        "browser": true,
-        "node": true,
-        "jquery": true,
-        "mongo": true
-    },
-    "globals": {
-        // "firebase": true,
-        "firebase": false
-    },
-    "extends": "airbnb-base",
-    "rules": {
-        // "semi": ["error", "always"],
-        // "quotes": ["error", "single"],
-        "linebreak-style": "off"
-        // "comma-dangle": ["error", "never"],
-        // "no-console": "off"
-    }
+  "root": true,
+  "env": {
+    "browser": true,
+    "node": true,
+    "jquery": true,
+    "mongo": true
+  },
+  "globals": {
+    // "firebase": true,
+    "firebase": false
+  },
+  "extends": "airbnb-base",
+  "rules": {
+    // "semi": ["error", "always"],
+    // "quotes": ["error", "single"],
+    "linebreak-style": "off"
+    // "comma-dangle": ["error", "never"],
+    // "no-console": "off"
+  }
 }

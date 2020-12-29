@@ -45,12 +45,14 @@ const signup = () => {
 
   signupRef.addEventListener('click', () => {
     // console.log(firstUser.value);
-    firebase.auth().createUserWithEmailAndPassword(firstUser.value, firstPassword.value)
+    firebase
+      .auth()
+      .createUserWithEmailAndPassword(firstUser.value, firstPassword.value)
       .then(() => {
         window.location = './index.html';
       })
       .catch((error) => {
-          // const errorCode = error.code;
+        // const errorCode = error.code;
         const errorMessage = error.message;
         signupErrorMessage.innerHTML = errorMessage;
       });
@@ -67,13 +69,14 @@ const signin = () => {
 
   signinRef.addEventListener('click', () => {
     // console.log(firstUser.value);
-    firebase.auth()
+    firebase
+      .auth()
       .signInWithEmailAndPassword(signinUser.value, password.value)
       .then(() => {
         window.location = './index.html';
       })
       .catch((error) => {
-          // const errorCode = error.code;
+        // const errorCode = error.code;
         const errorMessage = error.message;
         signinErrorMessage.innerHTML = errorMessage;
       });
@@ -82,64 +85,77 @@ const signin = () => {
   signinGoogle.addEventListener('click', () => {
     // console.log(firstUser.value);
     const provider = new firebase.auth.GoogleAuthProvider();
-    firebase.auth().signInWithPopup(provider).then(() => {
-      // This gives you a Google Access Token. You can use it to access the Google API.
-      // const token = result.credential.accessToken;
-      // The signed-in user info.
-      // const user = result.user;
-      // ...
-      // user = result.user;
-      // console.log(result.user);
-      window.location = './index.html';
-    }).catch((error) => {
-      // Handle Errors here.
-      // const errorCode = error.code;
-      // const errorMessage = error.message;
-      // The email of the user's account used.
-      // const email = error.email;
-      // The firebase.auth.AuthCredential type that was used.
-      // const credential = error.credential;
-      // ...
-      console.log(error);
-    });
+    firebase
+      .auth()
+      .signInWithPopup(provider)
+      .then(() => {
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        // const token = result.credential.accessToken;
+        // The signed-in user info.
+        // const user = result.user;
+        // ...
+        // user = result.user;
+        // console.log(result.user);
+        window.location = './index.html';
+      })
+      .catch((error) => {
+        // Handle Errors here.
+        // const errorCode = error.code;
+        // const errorMessage = error.message;
+        // The email of the user's account used.
+        // const email = error.email;
+        // The firebase.auth.AuthCredential type that was used.
+        // const credential = error.credential;
+        // ...
+        console.log(error);
+      });
   });
 
   signinFacebook.addEventListener('click', () => {
     // console.log(firstUser.value);
     const provider = new firebase.auth.FacebookAuthProvider();
-    firebase.auth().signInWithPopup(provider).then(() => {
-      // .then((result) => {
-      // This gives you a Google Access Token. You can use it to access the Google API.
-      // const token = result.credential.accessToken;
-      // The signed-in user info.
-      // const user = result.user;
-      // ...
-      window.location = './index.html';
-    }).catch((error) => {
-      // Handle Errors here.
-      // const errorCode = error.code;
-      // const errorMessage = error.message;
-      // The email of the user's account used.
-      // const email = error.email;
-      // The firebase.auth.AuthCredential type that was used.
-      // const credential = error.credential;
-      // ...
-      console.log(error);
-    });
+    firebase
+      .auth()
+      .signInWithPopup(provider)
+      .then(() => {
+        // .then((result) => {
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        // const token = result.credential.accessToken;
+        // The signed-in user info.
+        // const user = result.user;
+        // ...
+        window.location = './index.html';
+      })
+      .catch((error) => {
+        // Handle Errors here.
+        // const errorCode = error.code;
+        // const errorMessage = error.message;
+        // The email of the user's account used.
+        // const email = error.email;
+        // The firebase.auth.AuthCredential type that was used.
+        // const credential = error.credential;
+        // ...
+        console.log(error);
+      });
   });
 };
 
 function signOutListener() {
   const signOut = document.getElementById('sign-out');
   signOut.addEventListener('click', () => {
-    firebase.auth().signOut().then(() => {
-      // console.log('User sign out!');
-    }, (error) => {
-      console.log(error);
-    });
+    firebase
+      .auth()
+      .signOut()
+      .then(
+        () => {
+          // console.log('User sign out!');
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
   });
 }
-
 
 function writeAccountData(id, title, type, number, date) {
   const numberFloat = parseFloat(number);
@@ -148,16 +164,18 @@ function writeAccountData(id, title, type, number, date) {
   const accountRef = database.ref(`users/${user.uid}/data/${id}`);
   const countRef = database.ref(`users/${user.uid}/count`);
 
-  countRef.once('value', (snapshot) => {
-    const data = snapshot.val();
-    return countRef.update({
-      [type]: data[type] + numberFloat,
+  countRef
+    .once('value', (snapshot) => {
+      const data = snapshot.val();
+      return countRef.update({
+        [type]: data[type] + numberFloat,
+      });
+    })
+    .then(() => {
+      accountRef.set({ title, type, number, date }, () => {
+        window.location = './create.html';
+      });
     });
-  }).then(() => {
-    accountRef.set({ title, type, number, date }, () => {
-      window.location = './create.html';
-    });
-  });
 }
 
 function updateData(id, title, type, numberText, date) {
@@ -169,25 +187,26 @@ function updateData(id, title, type, numberText, date) {
   const accountRef = database.ref(`users/${user.uid}/data/${id}`);
   const countRef = database.ref(`users/${user.uid}/count`);
 
-  countRef.once('value', (snapshot) => {
-    const data = snapshot.val();
-    if (type === preType) {
+  countRef
+    .once('value', (snapshot) => {
+      const data = snapshot.val();
+      if (type === preType) {
+        return countRef.update({
+          // eslint-disable-next-line no-mixed-operators
+          [preType]: data[preType] - preNumber + number,
+        });
+      }
       return countRef.update({
-        // eslint-disable-next-line no-mixed-operators
-        [preType]: data[preType] - preNumber + number,
+        [preType]: data[preType] - preNumber,
+        [type]: data[type] + number,
       });
-    }
-    return countRef.update({
-      [preType]: data[preType] - preNumber,
-      [type]: data[type] + number,
+    })
+    .then(() => {
+      accountRef.update({ title, type, number, date }, () => {
+        window.location = './detail.html';
+      });
     });
-  }).then(() => {
-    accountRef.update({ title, type, number, date }, () => {
-      window.location = './detail.html';
-    });
-  });
 }
-
 
 function deleteData(id) {
   // user = firebase.auth().currentUser;
@@ -197,16 +216,18 @@ function deleteData(id) {
     const data = snapshot.val();
 
     const countRef = database.ref(`users/${user.uid}/count`);
-    countRef.once('value', (countRefSnapshot) => {
-      const countRefData = countRefSnapshot.val();
-      countRef.update({
-        [data.type]: countRefData[data.type] - data.number,
+    countRef
+      .once('value', (countRefSnapshot) => {
+        const countRefData = countRefSnapshot.val();
+        countRef.update({
+          [data.type]: countRefData[data.type] - data.number,
+        });
+      })
+      .then(() => {
+        accountRef.remove(() => {
+          window.location = './detail.html';
+        });
       });
-    }).then(() => {
-      accountRef.remove(() => {
-        window.location = './detail.html';
-      });
-    });
 
     // let str =
     //             `
@@ -233,7 +254,11 @@ function updateBtnListener() {
         // window.location = '/update.html?id=' + id +
         // '&title=' + snapshot.val().title + '&type=' + snapshot.val().type +
         // '&number=' + snapshot.val().number + '&date=' + snapshot.val().date;
-        window.location = `/update.html?id=${id}&title=${snapshot.val().title}&type=${snapshot.val().type}&number=${snapshot.val().number}&date=${snapshot.val().date}`;
+        window.location = `/update.html?id=${id}&title=${
+          snapshot.val().title
+        }&type=${snapshot.val().type}&number=${snapshot.val().number}&date=${
+          snapshot.val().date
+        }`;
       });
     });
   }
@@ -267,17 +292,13 @@ function loadChart() {
 
     // first chart
     const incomeData = {
-      labels: [
-        'Income',
-        'Expense',
+      labels: ['Income', 'Expense'],
+      datasets: [
+        {
+          data: [Income, Expense],
+          backgroundColor: ['#36A2EB', '#FF6384'],
+        },
       ],
-      datasets: [{
-        data: [Income, Expense],
-        backgroundColor: [
-          '#36A2EB',
-          '#FF6384',
-        ],
-      }],
     };
 
     // eslint-disable-next-line no-new
@@ -291,32 +312,28 @@ function loadChart() {
 
     // second chart
     const statistics = {
-      labels: [
-        'Meal',
-        'Life',
-        'Traffic',
-        'Entertainment',
-        'Others',
+      labels: ['Meal', 'Life', 'Traffic', 'Entertainment', 'Others'],
+      datasets: [
+        {
+          label: '',
+          data: [Meal, Life, Traffic, Entertainment, Others],
+          backgroundColor: [
+            'rgba(91, 192, 235, 0.9)',
+            'rgba(253, 231, 76, 0.9)',
+            'rgba(155, 197, 61, 0.9)',
+            'rgba(229, 89, 52, 0.9)',
+            'rgba(250, 121, 33, 0.9)',
+          ],
+          borderColor: [
+            'rgba(91, 192, 235, 1)',
+            'rgba(253, 231, 76,1)',
+            'rgba(155, 197, 61,1)',
+            'rgba(229, 89, 52,1)',
+            'rgba(250, 121, 33,1)',
+          ],
+          borderWidth: 1,
+        },
       ],
-      datasets: [{
-        label: '',
-        data: [Meal, Life, Traffic, Entertainment, Others],
-        backgroundColor: [
-          'rgba(91, 192, 235, 0.9)',
-          'rgba(253, 231, 76, 0.9)',
-          'rgba(155, 197, 61, 0.9)',
-          'rgba(229, 89, 52, 0.9)',
-          'rgba(250, 121, 33, 0.9)',
-        ],
-        borderColor: [
-          'rgba(91, 192, 235, 1)',
-          'rgba(253, 231, 76,1)',
-          'rgba(155, 197, 61,1)',
-          'rgba(229, 89, 52,1)',
-          'rgba(250, 121, 33,1)',
-        ],
-        borderWidth: 1,
-      }],
     };
 
     const options = {
@@ -324,16 +341,20 @@ function loadChart() {
         display: false,
       },
       scales: {
-        xAxes: [{
-          gridLines: {
-            display: false,
+        xAxes: [
+          {
+            gridLines: {
+              display: false,
+            },
           },
-        }],
-        yAxes: [{
-          ticks: {
-            min: 0,
+        ],
+        yAxes: [
+          {
+            ticks: {
+              min: 0,
+            },
           },
-        }],
+        ],
       },
       maintainAspectRatio: false,
     };
@@ -457,7 +478,6 @@ function readFormData() {
   $(`#${addFormRef.type.value.toLowerCase()}`).addClass('btn-primary');
 }
 
-
 // Date.prototype.toDateInputValue = (() => {
 //     const local = new Date(this);
 //     local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
@@ -559,6 +579,6 @@ switch (path) {
     onAuthState(readChart);
     // readChart();
     signOutListener();
-    // onAuthState();
-    // console.log(user);
+  // onAuthState();
+  // console.log(user);
 }

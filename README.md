@@ -16,14 +16,15 @@
 
 Adds a Expense Manager in the Chrome, which on click new blank opens page directly into Expense Manager.
 
-* [Chrome Extension](https://goo.gl/YPmDnM)
-* [Firebase Web](https://expense-manager-eacea.web.app)
+- [Chrome Extension](https://goo.gl/YPmDnM)
+- [Firebase Web](https://expense-manager-eacea.web.app)
 
 Don't Use it.
-* [Default Web](https://skyran.me)
-* [Azure Web](http://expense-manager.azurewebsites.net)
-* [Heroku Web](https://expense-manger.herokuapp.com)
-* [Source](https://github.com/skyran1278/Expense-Manager/tree/master/docs)
+
+- [Default Web](https://skyran.me)
+- [Azure Web](http://expense-manager.azurewebsites.net)
+- [Heroku Web](https://expense-manger.herokuapp.com)
+- [Source](https://github.com/skyran1278/Expense-Manager/tree/master/docs)
 
 ## Major Update
 
@@ -43,7 +44,7 @@ Don't Use it.
   - [x] 行動優先，Responsive Web Design
     - Button
     - Canvas
-  - [x] skyran.me個人網域與SSL憑證
+  - [x] skyran.me 個人網域與 SSL 憑證
 
 ## Next Possible Step
 
@@ -63,7 +64,7 @@ Details changes for each release are documented in the [release notes](https://g
 
 ## Contributors
 
-* [Skyran](https://github.com/skyran1278)
+- [Skyran](https://github.com/skyran1278)
 
 ## License
 
