@@ -2,20 +2,13 @@
   "root": true,
   "env": {
     "browser": true,
-    "node": true,
-    "jquery": true,
-    "mongo": true
+    "jquery": true
   },
   "globals": {
-    // "firebase": true,
-    "firebase": false
+    "firebase": true
   },
-  "extends": "airbnb-base",
+  "extends": ["airbnb-base", "prettier"],
   "rules": {
-    // "semi": ["error", "always"],
-    // "quotes": ["error", "single"],
     "linebreak-style": "off"
-    // "comma-dangle": ["error", "never"],
-    // "no-console": "off"
   }
 }
