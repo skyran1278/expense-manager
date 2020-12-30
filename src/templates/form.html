@@ -1,9 +1,9 @@
 <form id="add-form" class="">
     <div class="form-group">
-        <label for="number" class="control-label">Expense</label>
+        <label for="cash" class="control-label">Cash</label>
         <div class="input-group">
             <div class="input-group-addon">$</div>
-            <input type="number" class="form-control" name="number" id="number" placeholder="Amount of Consumption"
+            <input type="number" class="form-control" name="cash" id="cash" placeholder="Amount of Consumption"
                 required>
         </div>
     </div>
@@ -11,12 +11,12 @@
         <label for="type" class="control-label">Type</label>
         <br>
         <div class="" role="group" aria-label="...">
-            <button type="button" class="btn btn-default" id="meal">Meal</button>
-            <button type="button" class="btn btn-default" id="life">Life</button>
-            <button type="button" class="btn btn-default" id="traffic">Traffic</button>
-            <button type="button" class="btn btn-default" id="entertainment">Entertainment</button>
-            <button type="button" class="btn btn-default" id="others">Others</button>
-            <button type="button" class="btn btn-default" id="income">Income</button>
+            <button type="button" class="btn btn-default" id="Food">Food</button>
+            <button type="button" class="btn btn-default" id="Transportation">Transportation</button>
+            <button type="button" class="btn btn-default" id="Shopping">Shopping</button>
+            <button type="button" class="btn btn-default" id="Entertainment">Entertainment</button>
+            <button type="button" class="btn btn-default" id="Misc">Misc.</button>
+            <button type="button" class="btn btn-default" id="Income">Income</button>
             <!-- <div class="col-xs-12"></div> -->
             <input type="text" class="hide" name="type" id="type">
         </div>
@@ -33,12 +33,8 @@
             <input type="text" class="form-control" name="title" id="title" placeholder="Items">
         </div>
     </div>
-    <div class="form-group">
-        <div class="">
-            <button type="submit" class="btn btn-success">Submit</button>
-            <a href="./index.html">
-                <button type="button" class="btn btn-default">Home</button>
-            </a>
-        </div>
-    </div>
+    <button type="submit" class="btn btn-success">Submit</button>
+    <a href="./index.html">
+        <button type="button" class="btn btn-default">Home</button>
+    </a>
 </form>

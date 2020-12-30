@@ -1,5 +1,6 @@
-import uuid from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
 import Chart from 'chart.js';
+import values from 'lodash/values';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
@@ -146,7 +147,7 @@ function updateBtnListener() {
         // '&number=' + snapshot.val().number + '&date=' + snapshot.val().date;
         window.location = `/update.html?id=${id}&title=${
           snapshot.val().title
-        }&type=${snapshot.val().type}&number=${snapshot.val().number}&date=${
+        }&type=${snapshot.val().type}&cash=${snapshot.val().number}&date=${
           snapshot.val().date
         }`;
       });
@@ -165,43 +166,66 @@ function deleteBtnListener() {
   }
 }
 
-function loadChart() {
+function loadChart(rawData) {
   const ctxDataChart = document.querySelector('#data-chart');
   const ctxDataIncomeChart = document.querySelector('#data-income-chart');
-  const countRef = database.ref(`users/${user.uid}/count`);
 
-  countRef.once('value', (snapshot) => {
-    const data = snapshot.val();
-    const { Meal, Life, Traffic, Entertainment, Others, Income } = data;
-    const Expense = Meal + Life + Traffic + Entertainment + Others;
+  const chartData = values(rawData).reduce(
+    (acc, cur) => {
+      acc[cur.type] += cur.number;
+      return acc;
+    },
+    {
+      Income: 0,
+      Food: 0,
+      Drinks: 0,
+      Transportation: 0,
+      Shopping: 0,
+      Entertainment: 0,
+      Housing: 0,
+      Electronics: 0,
+      Medical: 0,
+      Misc: 0,
+    }
+  );
 
-    // first chart
-    const incomeData = {
+  console.log(rawData);
+
+  chartData.Expense = values(rawData).reduce((acc, cur) => acc + cur, 0);
+
+  // income and expense chart
+  // eslint-disable-next-line no-new
+  new Chart(ctxDataIncomeChart, {
+    data: {
       labels: ['Income', 'Expense'],
       datasets: [
         {
-          data: [Income, Expense],
+          data: [chartData.Income, chartData.Expense],
           backgroundColor: ['#36A2EB', '#FF6384'],
         },
       ],
-    };
+    },
+    type: 'doughnut',
+    options: {
+      maintainAspectRatio: false,
+    },
+  });
 
-    // eslint-disable-next-line no-new
-    new Chart(ctxDataIncomeChart, {
-      data: incomeData,
-      type: 'doughnut',
-      options: {
-        maintainAspectRatio: false,
-      },
-    });
-
-    // second chart
-    const statistics = {
-      labels: ['Meal', 'Life', 'Traffic', 'Entertainment', 'Others'],
+  // expenses chart
+  // eslint-disable-next-line no-new
+  new Chart(ctxDataChart, {
+    data: {
+      labels: ['Food', 'Transportation', 'Shopping', 'Entertainment', 'Misc.'],
       datasets: [
         {
           label: '',
-          data: [Meal, Life, Traffic, Entertainment, Others],
+          data: [
+            chartData.Food,
+            chartData.Transportation,
+            chartData.Shopping,
+            chartData.Entertainment,
+            chartData.Misc,
+          ],
           backgroundColor: [
             'rgba(91, 192, 235, 0.9)',
             'rgba(253, 231, 76, 0.9)',
@@ -219,9 +243,9 @@ function loadChart() {
           borderWidth: 1,
         },
       ],
-    };
-
-    const options = {
+    },
+    type: 'bar',
+    options: {
       legend: {
         display: false,
       },
@@ -242,14 +266,7 @@ function loadChart() {
         ],
       },
       maintainAspectRatio: false,
-    };
-
-    // eslint-disable-next-line no-new
-    new Chart(ctxDataChart, {
-      data: statistics,
-      type: 'bar',
-      options,
-    });
+    },
   });
 }
 
@@ -272,7 +289,7 @@ function readChart() {
         </a>
         `;
     } else {
-      loadChart();
+      loadChart(data);
     }
     $('#loading').hide();
   });
@@ -357,10 +374,10 @@ function readFormData() {
   const params = window.location.search.replace('?', '').split('&');
   const addFormRef = document.querySelector('#add-form');
   addFormRef.title.value = decodeURI(params[1].split('=')[1]);
-  addFormRef.type.value = params[2].split('=')[1];
-  addFormRef.number.value = params[3].split('=')[1];
-  addFormRef.date.value = params[4].split('=')[1];
-  $(`#${addFormRef.type.value.toLowerCase()}`).addClass('btn-primary');
+  [, addFormRef.type.value] = params[2].split('=');
+  [, addFormRef.cash.value] = params[3].split('=');
+  [, addFormRef.date.value] = params[4].split('=');
+  $(`#${addFormRef.type.value}`).addClass('btn-primary');
 }
 
 // Date.prototype.toDateInputValue = (() => {
@@ -371,58 +388,62 @@ function readFormData() {
 
 function submitListener(submitType) {
   const addFormRef = document.querySelector('#add-form');
+
   const setClass = (value) => {
-    $('#meal').removeClass('btn-primary');
-    $('#life').removeClass('btn-primary');
-    $('#entertainment').removeClass('btn-primary');
-    $('#traffic').removeClass('btn-primary');
-    $('#others').removeClass('btn-primary');
-    $('#income').removeClass('btn-primary');
-    $(`#${value.toLowerCase()}`).addClass('btn-primary');
+    $('#Food').removeClass('btn-primary');
+    $('#Transportation').removeClass('btn-primary');
+    $('#Shopping').removeClass('btn-primary');
+    $('#Entertainment').removeClass('btn-primary');
+    $('#Misc').removeClass('btn-primary');
+    $('#Income').removeClass('btn-primary');
+    $(`#${value}`).addClass('btn-primary');
   };
 
-  $('#meal').click(() => {
-    addFormRef.type.value = 'Meal';
+  $('#Food').click(() => {
+    addFormRef.type.value = 'Food';
     setClass(addFormRef.type.value);
   });
 
-  $('#life').click(() => {
-    addFormRef.type.value = 'Life';
+  $('#Transportation').click(() => {
+    addFormRef.type.value = 'Transportation';
     setClass(addFormRef.type.value);
   });
-  $('#entertainment').click(() => {
+  $('#Shopping').click(() => {
+    addFormRef.type.value = 'Shopping';
+    setClass(addFormRef.type.value);
+  });
+  $('#Entertainment').click(() => {
     addFormRef.type.value = 'Entertainment';
     setClass(addFormRef.type.value);
   });
-  $('#traffic').click(() => {
-    addFormRef.type.value = 'Traffic';
+  $('#Misc').click(() => {
+    addFormRef.type.value = 'Misc';
     setClass(addFormRef.type.value);
   });
-  $('#others').click(() => {
-    addFormRef.type.value = 'Others';
-    setClass(addFormRef.type.value);
-  });
-  $('#income').click(() => {
+  $('#Income').click(() => {
     addFormRef.type.value = 'Income';
     setClass(addFormRef.type.value);
   });
 
+  // default
   if (submitType === 'create') {
+    addFormRef.type.value = 'Food';
+    setClass(addFormRef.type.value);
     document.getElementById('date').valueAsDate = new Date();
   }
 
   addFormRef.addEventListener('submit', (e) => {
     e.preventDefault();
-    let id = uuid.v4(); // random
     const title = addFormRef.title.value;
     const type = addFormRef.type.value;
-    const number = addFormRef.number.value;
+    const number = parseFloat(addFormRef.cash.value);
     const date = addFormRef.date.value;
     if (submitType === 'create') {
+      const id = uuidv4(); // random
       writeAccountData(id, title, type, number, date);
     } else {
       const params = window.location.search.replace('?', '').split('&');
-      id = params[0].split('=')[1];
+      const [, id] = params[0].split('=');
       updateData(id, title, type, number, date);
     }
   });
