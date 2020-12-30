@@ -37,27 +37,8 @@ const onAuthState = (callback) => {
 };
 
 const signin = () => {
-  const signinUser = document.getElementById('user');
-  const password = document.getElementById('password');
-  const signinRef = document.getElementById('signin-btn');
   const signinGoogle = document.getElementById('signin-google');
   const signinFacebook = document.getElementById('signin-facebook');
-  const signinErrorMessage = document.getElementById('signin-error-message');
-
-  signinRef.addEventListener('click', () => {
-    // console.log(firstUser.value);
-    firebase
-      .auth()
-      .signInWithEmailAndPassword(signinUser.value, password.value)
-      .then(() => {
-        window.location = './index.html';
-      })
-      .catch((error) => {
-        // const errorCode = error.code;
-        const errorMessage = error.message;
-        signinErrorMessage.innerHTML = errorMessage;
-      });
-  });
 
   signinGoogle.addEventListener('click', () => {
     // console.log(firstUser.value);
