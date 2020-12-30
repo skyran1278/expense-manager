@@ -1,3 +1,8 @@
+Todo
+
+1. clear all
+2. 自動 focus
+
 <p align="center"><a href="#" target="_blank"><img width="150" src="https://github.com/skyran1278/Expense-Manager/blob/firebase/icons/playstore/icon.png"></a></p>
 
 <p align="center">
@@ -10,7 +15,7 @@
 
 > Expense Manager is an expense record.
 >
-> It can help you manage your life expense.
+> It can help you manage your expense.
 
 ## Chrome Extension
 
