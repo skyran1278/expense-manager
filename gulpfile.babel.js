@@ -9,7 +9,7 @@ import babelify from 'babelify';
 import sass from 'gulp-sass';
 
 // 壓縮
-import uglify from 'gulp-uglify';
+// import uglify from 'gulp-uglify';
 import imagemin from 'gulp-imagemin';
 import cleanCSS from 'gulp-clean-css';
 import htmlmin from 'gulp-htmlmin';
@@ -22,8 +22,6 @@ import buffer from 'vinyl-buffer';
 
 // 打包合併文件 JS 與 HTML
 import browserify from 'browserify';
-import watchify from 'watchify';
-import assign from 'lodash/assign';
 import fileinclude from 'gulp-file-include';
 
 // Debug 用
@@ -79,9 +77,7 @@ gulp.task('styles', ['cleanStyles'], () =>
     .pipe(
       plumber({
         errorHandler: notify.onError(
-          `\n\n${gutil.colors.bgRed.white(
-            '\n' + 'Error:' + '\n\n' + '<%= error.message %>'
-          )}\n\n`
+          `${gutil.colors.bgRed.white(`'Error: <%= error.message %>`)}`
         ),
       })
     )
@@ -108,26 +104,19 @@ gulp.task('styles', ['cleanStyles'], () =>
 );
 
 // 編譯 JavaScript 轉譯、合併、壓縮任務，完成後送到 dist/js/bundle.js
-
-// add custom browserify options here
-const customOpts = {
-  entries: ['./src/scripts/main.js'],
-  debug: true,
-};
-const opts = assign({}, watchify.args, customOpts);
-const b = watchify(browserify(opts));
-
-// add transformations here
-b.transform(babelify);
-
 // so you can run `gulp js` to build the file
 gulp.task('scripts', ['cleanScripts'], () =>
-  b
+  browserify({
+    entries: ['./src/scripts/main.js'],
+    debug: true,
+  })
+    // add transformations here
+    .transform(babelify)
     .bundle()
-    .on('error', function (err) {
+    .on('error', (err) => {
       gutil.log(
         `\n\n${gutil.colors.bgRed(
-          `${'\n' + 'Browserify compile error: ' + '\n\n'}${err.message}\n`
+          `Browserify compile error: ${err.message}\n`
         )}\n\n`
       );
       this.emit('end');
@@ -137,9 +126,7 @@ gulp.task('scripts', ['cleanScripts'], () =>
     .pipe(
       plumber({
         errorHandler: notify.onError(
-          `\n\n${gutil.colors.bgRed.white(
-            '\n' + 'Error:' + '\n\n' + '<%= error.message %>'
-          )}\n\n`
+          `${gutil.colors.bgRed.white(`'Error: <%= error.message %>`)}`
         ),
       })
     )
