@@ -4,6 +4,7 @@ import values from 'lodash/values';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
 
 // Initialize Firebase
 const config = {
@@ -205,8 +206,15 @@ function loadChart(rawData) {
       ],
     },
     type: 'doughnut',
+    plugins: [ChartDataLabels],
     options: {
       maintainAspectRatio: false,
+      plugins: {
+        // Change options for ALL labels of THIS CHART
+        datalabels: {
+          formatter: (value) => `$${value}`,
+        },
+      },
     },
   });
 
@@ -244,7 +252,14 @@ function loadChart(rawData) {
       ],
     },
     type: 'bar',
+    plugins: [ChartDataLabels],
     options: {
+      plugins: {
+        // Change options for ALL labels of THIS CHART
+        datalabels: {
+          formatter: (value) => `$${value}`,
+        },
+      },
       legend: {
         display: false,
       },
