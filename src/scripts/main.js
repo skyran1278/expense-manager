@@ -1,20 +1,17 @@
 import { v4 as uuidv4 } from 'uuid';
 import Chart from 'chart.js';
 import values from 'lodash/values';
-import firebase from 'firebase/app';
-import 'firebase/auth';
-import 'firebase/database';
 
 // Initialize Firebase
-const config = {
-  apiKey: 'AIzaSyCms_SUzXe1Ng-a3jv-BsKKLfkXH1JUW6c',
-  authDomain: 'expense-manager-eacea.firebaseapp.com',
-  databaseURL: 'https://expense-manager-eacea.firebaseio.com',
-  projectId: 'expense-manager-eacea',
-  storageBucket: 'expense-manager-eacea.appspot.com',
-  messagingSenderId: '400660080161',
-};
-firebase.initializeApp(config);
+// const config = {
+//   apiKey: 'AIzaSyCms_SUzXe1Ng-a3jv-BsKKLfkXH1JUW6c',
+//   authDomain: 'expense-manager-eacea.firebaseapp.com',
+//   databaseURL: 'https://expense-manager-eacea.firebaseio.com',
+//   projectId: 'expense-manager-eacea',
+//   storageBucket: 'expense-manager-eacea.appspot.com',
+//   messagingSenderId: '400660080161',
+// };
+// firebase.initializeApp(config);
 
 const database = firebase.database();
 

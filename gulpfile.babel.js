@@ -23,7 +23,7 @@ import buffer from 'vinyl-buffer';
 // 打包合併文件 JS 與 HTML
 import browserify from 'browserify';
 import watchify from 'watchify';
-import assign from 'lodash.assign';
+import assign from 'lodash/assign';
 import fileinclude from 'gulp-file-include';
 
 // Debug 用
