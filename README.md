@@ -1,8 +1,4 @@
-Todo
-
-1. clear all
-
-<p align="center"><a href="#" target="_blank"><img width="150" src="https://github.com/skyran1278/expense-manager/tree/master/icons/playstore/icon.png"></a></p>
+<p align="center"><a href="#" target="_blank"><img width="150" src="https://github.com/skyran1278/expense-manager/blob/master/icons/playstore/icon.png?raw=true"></a></p>
 <p align="center">
   <a href="#"><img src="https://img.shields.io/github/release/skyran1278/expense-manager" alt="Version"></a>
   <img alt="GitHub" src="https://img.shields.io/github/license/skyran1278/expense-manager">
