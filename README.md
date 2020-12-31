@@ -2,19 +2,15 @@ Todo
 
 1. clear all
 
-<p align="center"><a href="#" target="_blank"><img width="150" src="https://github.com/skyran1278/Expense-Manager/blob/firebase/icons/playstore/icon.png"></a></p>
-
+<p align="center"><a href="#" target="_blank"><img width="150" src="https://github.com/skyran1278/expense-manager/tree/master/icons/playstore/icon.png"></a></p>
 <p align="center">
-<!--   <a href="/"><img src="https://img.shields.io/github/downloads/skyran1278/20170324-Account/latest/total.svg" alt="Downloads"></a> -->
-  <a href="#"><img src="https://img.shields.io/github/release/skyran1278/Expense-Manager.svg" alt="Version"></a>
-  <a href="#"><img src="https://img.shields.io/github/license/skyran1278/Expense-Manager.svg" alt="License"></a>
+  <a href="#"><img src="https://img.shields.io/github/release/skyran1278/expense-manager" alt="Version"></a>
+  <img alt="GitHub" src="https://img.shields.io/github/license/skyran1278/expense-manager">
 </p>
 
 ## Expense Manager
 
-> Expense Manager is an expense record.
->
-> It can help you manage your expense.
+> Manage your expense, user-friendly and powerful.
 
 ## Chrome Extension
 
