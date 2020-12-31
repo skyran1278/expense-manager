@@ -301,8 +301,8 @@ function readAccountData() {
         <th class="col-md-1"></th>
         <th class="col-md-2">Title</th>
         <th class="col-md-2">Type</th>
-        <th class="col-md-2">Number</th>
-        <th class="col-md-2">Time</th>
+        <th class="col-md-2">Cash</th>
+        <th class="col-md-2">Date</th>
         <th class="col-md-2">Edit</th>
         <th class="col-md-1"></th>
       </tr>
