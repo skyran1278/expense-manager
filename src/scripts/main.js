@@ -192,8 +192,6 @@ function loadChart(rawData) {
 
   chartData.Expense = values(chartData).reduce((acc, cur) => acc + cur, 0);
 
-  console.log(values(rawData));
-
   // income and expense chart
   // eslint-disable-next-line no-new
   new Chart(ctxDataIncomeChart, {
@@ -355,8 +353,8 @@ function readAccountData() {
             <td>$ ${key[3]}</td>
             <td>${key[0]}</td>
             <td>
-              <button type="button" class="btn btn-primary update-btn" data-id="${key[4]}">Update</button>
-              <button type="button" class="btn btn-danger delete-btn" data-id="${key[4]}">Delete</button>
+              <button type="button" class="btn btn-primary update-btn monospace-font" data-id="${key[4]}">Update</button>
+              <button type="button" class="btn btn-danger delete-btn monospace-font" data-id="${key[4]}">Delete</button>
             </td>
             <td></td>
           </tr>

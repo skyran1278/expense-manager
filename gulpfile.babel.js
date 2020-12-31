@@ -111,13 +111,11 @@ gulp.task('scripts', ['cleanScripts'], () =>
     debug: true,
   })
     // add transformations here
-    .transform(babelify)
+    .transform(babelify, { presets: ['@babel/preset-env'] })
     .bundle()
     .on('error', (err) => {
       gutil.log(
-        `\n\n${gutil.colors.bgRed(
-          `Browserify compile error: ${err.message}\n`
-        )}\n\n`
+        gutil.colors.bgRed(`Browserify compile error: ${err.message}\n`)
       );
       this.emit('end');
     })
@@ -136,7 +134,6 @@ gulp.task('scripts', ['cleanScripts'], () =>
     .pipe(sourcemaps.write('./'))
     .pipe(gulp.dest(scriptsPaths.dist))
     // .pipe(connect.reload())
-    // .pipe(notify("Finish JS"))
     .pipe(browserSync.stream())
 );
 
