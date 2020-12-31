@@ -1,7 +1,6 @@
 Todo
 
 1. clear all
-2. 自動 focus
 
 <p align="center"><a href="#" target="_blank"><img width="150" src="https://github.com/skyran1278/Expense-Manager/blob/firebase/icons/playstore/icon.png"></a></p>
 
@@ -21,15 +20,8 @@ Todo
 
 Adds a Expense Manager in the Chrome, which on click new blank opens page directly into Expense Manager.
 
+- [Web](https://u-ran.com)
 - [Chrome Extension](https://goo.gl/YPmDnM)
-- [Firebase Web](https://expense-manager-eacea.web.app)
-
-Don't Use it.
-
-- [Default Web](https://skyran.me)
-- [Azure Web](http://expense-manager.azurewebsites.net)
-- [Heroku Web](https://expense-manger.herokuapp.com)
-- [Source](https://github.com/skyran1278/Expense-Manager/tree/master/docs)
 
 ## Major Update
 
@@ -50,18 +42,14 @@ Don't Use it.
     - Button
     - Canvas
   - [x] skyran.me 個人網域與 SSL 憑證
+  - [x] 加入 Google Analytics
+  - [x] 自動 focus 在輸入金額的 Input 上
 
 ## Next Possible Step
 
-- 資料庫換成 [MongoDB](https://www.mongodb.com/)
-- 使用 [Vue.js](https://cn.vuejs.org/v2/guide/) 來實作
-- 登入登出使用 [Passport](http://passportjs.org/)
-- canvas 可以變成 slide show **-Not Beautiful, so delete it.**
-- 增加多個專案功能
-- 刪除回復功能
-- 個人化設定 Type Button **實作中**
-- [忘記密碼與信箱驗證功能](https://firebase.google.com/docs/auth/web/manage-users#send_a_user_a_verification_email) **-使簡單的事情變複雜了，故刪除之。**
-- 評估是否要加入 Google Analytics
+- [] 刪除回復功能
+- [] 個人化設定 Type Button **實作中**
+- [] clear all
 
 ## Changelog
 
@@ -69,7 +57,7 @@ Details changes for each release are documented in the [release notes](https://g
 
 ## Contributors
 
-- [Skyran](https://github.com/skyran1278)
+- [Nai You Ran](https://github.com/skyran1278)
 
 ## License
 
