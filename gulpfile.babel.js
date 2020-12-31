@@ -210,7 +210,7 @@ gulp.task('default', [
   'scripts',
   'styles',
   'images',
-  'watch',
   'json',
+  'watch',
 ]);
 gulp.task('build', ['html', 'scripts', 'styles', 'images', 'json']);
