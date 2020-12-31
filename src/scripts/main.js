@@ -1,17 +1,20 @@
 import { v4 as uuidv4 } from 'uuid';
 import Chart from 'chart.js';
 import values from 'lodash/values';
+import firebase from 'firebase/app';
+import 'firebase/auth';
+import 'firebase/database';
 
 // Initialize Firebase
-// const config = {
-//   apiKey: 'AIzaSyCms_SUzXe1Ng-a3jv-BsKKLfkXH1JUW6c',
-//   authDomain: 'expense-manager-eacea.firebaseapp.com',
-//   databaseURL: 'https://expense-manager-eacea.firebaseio.com',
-//   projectId: 'expense-manager-eacea',
-//   storageBucket: 'expense-manager-eacea.appspot.com',
-//   messagingSenderId: '400660080161',
-// };
-// firebase.initializeApp(config);
+const config = {
+  apiKey: 'AIzaSyCms_SUzXe1Ng-a3jv-BsKKLfkXH1JUW6c',
+  authDomain: 'expense-manager-eacea.firebaseapp.com',
+  databaseURL: 'https://expense-manager-eacea.firebaseio.com',
+  projectId: 'expense-manager-eacea',
+  storageBucket: 'expense-manager-eacea.appspot.com',
+  messagingSenderId: '400660080161',
+};
+firebase.initializeApp(config);
 
 const database = firebase.database();
 
@@ -183,12 +186,13 @@ function loadChart(rawData) {
       Electronics: 0,
       Medical: 0,
       Misc: 0,
+      Expense: 0,
     }
   );
 
-  console.log(rawData);
+  chartData.Expense = values(chartData).reduce((acc, cur) => acc + cur, 0);
 
-  chartData.Expense = values(rawData).reduce((acc, cur) => acc + cur, 0);
+  console.log(values(rawData));
 
   // income and expense chart
   // eslint-disable-next-line no-new
